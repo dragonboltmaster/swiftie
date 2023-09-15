@@ -1,0 +1,2786 @@
+<!DOCTYPE html >
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiftie Home</title>
+    
+    
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-functions.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
+<!-- google font imports -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@900&display=swap" rel="stylesheet">
+
+<!-- icon stylesheet -->
+<script src="https://kit.fontawesome.com/46a9aec258.js" crossorigin="anonymous"></script>
+<!-- date picker library-->
+<link rel="stylesheet" type="text/css" href="lightpick.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="lightpick.js"></script>
+
+<style>
+.hidden {
+    display: none;
+}
+body{
+  text-align: center;
+}
+
+
+.font{
+  font-family: 'Inter', sans-serif;
+      }
+ .heading-font{
+  font-family: 'Heebo', sans-serif;
+      }
+ .green{
+   color: rgb(92, 228, 92);
+ }
+ .pink{
+  color: rgb(248, 46, 255);
+ }
+ 
+ #top-white-bar{
+   background-color: white;
+   position: fixed;
+    top: 0%;
+    right:0%;
+   width: 70%;
+   justify-content: space-between;
+   box-shadow: 3px 0px 5px #8888;
+   height: 10%;
+   z-index: 1;
+   align-items: center;
+ }
+ #restaurant-name{
+   font-size: 150%;
+   font-weight: 500;
+ }
+ #left-bar{
+   position: fixed;
+   margin-top: -1%;
+   margin-left: -1%;
+   display: flex;
+   flex-direction: column;
+   justify-content:space-around;
+   background-color: rgb(71, 71, 71);
+   color: white;
+   font-size: 180%;
+   height: 86%;
+   width: 30%;
+   z-index: 2;
+   border-radius: 0px 60px 0px 0px;
+ }
+ #all-tabs{
+   margin: 0%;
+   height: 75%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+  }
+ #swiftie-logo{
+   width: 80%;
+   margin-left: auto;
+   margin-right: auto;
+   display: block;
+ }
+ #orders-tab{
+   width:100%;
+ }
+ .strikethrough{
+  text-decoration: line-through;
+ }
+ .selected{
+  background-color: rgb(248, 46, 255);
+  border-radius: 25px;
+ }
+ /* form style classes */ 
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 50%;
+}
+
+.form__field {
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid rgb(117, 117, 117);
+  outline: 0;
+  font-size: 1.3rem;
+  color: #F82EFF;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+  .form__field::placeholder {
+    color: transparent;
+    
+  }
+
+  .form__field:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+
+
+.form__label {
+    font-family: 'Inter', sans-serif;
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: grey;
+  pointer-events: none;
+}
+.red{
+  color: red;
+}
+.form__field:focus + .form__label {
+  
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: rgb(248, 46, 255);
+    font-weight:700;    
+  
+  padding-bottom: 6px;  
+  font-weight: 700;
+  border-width: 3px;
+  border-image-slice: 1;
+  
+}
+.form__field:focus{
+    border-bottom: solid 2px rgb(248, 46, 255);
+}
+/* reset input */
+.form__field:required .form__field:invalid {
+  box-shadow:none
+}
+ .spacing{
+   
+   margin-right: 6%;
+ }
+ .spacing-top{
+  margin: 0%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+ }
+ #bottom-bar{
+  background-color: white;
+   position: fixed;
+   display:flex;
+   align-items: center;
+   width: 100%;
+   box-shadow: 3px 0px 5px #8888;
+    bottom: 0%;
+    left: 0%;
+   height: 14%;
+   z-index: 3;
+ }
+ #text-bottom-bar{
+   width: 25%;
+
+ }
+ .right-box{
+  border-style: solid;
+   border-width: 0px;
+   border-color: rgb(71, 71, 71);
+   position: absolute;
+   height: 82%;
+   width: 69%;
+   left: 30%;
+   top: 14%;
+   overflow: scroll;
+ }
+ 
+ .order-box{
+   width: 99%;
+   border-radius: 25px;
+   box-shadow: 0px 2px 10px rgb(71, 71, 71);
+   margin-top: 2%;
+   margin-left: 0.5%;
+   text-align: left;
+   padding-bottom: 2%;
+   
+ }
+ .black-bar{
+   background-color: rgb(71, 71, 71);
+   border-radius: 25px 25px 0px 0px;
+   font-size: 30px;
+   text-align: center;
+ }
+ .item-name{
+  color: rgb(248, 46, 255);
+  font-family: 'Heebo', sans-serif;
+  margin-left: 3%;
+  margin-top: 1%;
+  font-size: 33px;
+  
+ }
+ .toppings-sides{
+  font-family: 'Inter', sans-serif;
+  margin-left: 3%;
+  margin-top: 1%;
+  font-size: 24px;
+ }
+ .finish-button{
+   text-align: center;
+   font-family: 'Inter', sans-serif;
+   color: white;
+   background-color: rgb(248, 46, 255);
+   width: 15%;
+   margin-top: 1%;
+   margin-left: auto;
+   margin-right: auto;
+   padding-top: 1.5%;
+   padding-bottom: 1.5%;
+   padding-right: 3%;
+   padding-left: 3%;
+   border-radius: 25px;
+   font-size: 23px;
+ }
+ #waiter-requested{
+   text-align: left;
+   margin-left: 4%;
+   margin-top: .5%;
+   font-size: 20px;
+ }
+ #tap-dismiss{
+   text-align: left;
+   margin-left: 5.5%;
+   margin-top: -.7%;
+   font-style: italic;
+ }
+ #menu-items-button{
+  font-family: 'Inter', sans-serif;
+   color: rgb(248, 46, 255);
+   border-style: solid;
+   border-width: 5px;
+   border-radius: 25px;
+   width: 60%;
+   padding: 3%;
+   font-size: 25px;
+   margin-top: 11%;
+   margin-left: auto;
+   margin-right: auto;
+ }
+ #toppings-sides-button{
+  font-family: 'Inter', sans-serif;
+   color: rgb(248, 46, 255);
+   border-style: solid;
+   border-width: 5px;
+   border-radius: 25px;
+   width: 60%;
+   padding: 3%;
+   font-size: 25px;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 11%;
+ }
+ .back-button{
+   position: absolute;
+   font-family: 'Inter', sans-serif;
+   color: rgb(248, 46, 255);
+   border-radius: 25px;
+   border-style: solid;
+   border-width: 4px;
+   padding-left: 3%;
+   padding-right: 3%;
+   padding-top: 1%;
+   padding-bottom: 1%;
+   top: 3%;
+   left: 3%;
+   font-size: 23px;
+ }
+ .menu-edit-category{
+  font-family: 'Inter', sans-serif;
+   color: rgb(248, 46, 255);
+   border-radius: 25px;
+   border-style: solid;
+   border-width: 4px;
+   padding-top: 3%;
+   padding-bottom: 3%;
+   font-size: 33px;
+   width: auto;
+   margin-top: 3%;
+   margin-left: auto;
+   margin-right: auto;
+ }
+ #menu-categories{
+   margin-top: 14%;
+   margin-left: auto;
+   margin-right: auto;
+ }
+ #hide-menu-category{
+   margin-left: 0%;
+ }
+ #delete-menu-category{
+   margin-left: 9%;
+ }
+ .transparent{
+   opacity: .3;
+ }
+ #arrow-up-category{
+  margin-left: 8%;
+ }
+ #arrow-down-category{
+  margin-left: 5%;
+ }
+ #show-menu-category{
+   margin-left: 7%;
+ }
+ .alert-box{
+   z-index: 3;
+   background-color: white;
+   border-color: rgb(248, 46, 255);
+   border-style: solid;
+   border-width: 5px;
+   position: absolute;
+   border-radius: 25px;
+   width: 70%;
+   height: 70%;
+   top: 11%;
+   left: 15%;
+ }
+ #question-category{
+   margin-top: 7%;
+   font-size: 30px;
+ }
+ #yes-button-category{
+  font-size: 35px;
+  color: white;
+  background-color: rgb(248, 46, 255);
+  width: 16%;
+  padding-top:2%;
+  padding-bottom: 2%;
+  position: absolute;
+  left: 70%;
+  top: 65%;
+  border-radius: 25px;
+ }
+ #cancel-button-category{
+  font-size: 35px;
+  width: 16%;
+  padding-top:2%;
+  padding-bottom: 2%;
+  position: absolute;
+  left: 15%;
+  top: 65%;
+ }
+ #new-category-name-box{
+   margin-left: 26%;
+   margin-top: 11%;
+ }
+ #add-button-category{
+  font-size: 35px;
+  color: white;
+  background-color: rgb(248, 46, 255);
+  width: 16%;
+  padding-top:2%;
+  padding-bottom: 2%;
+  position: absolute;
+  left: 70%;
+  top: 65%;
+  border-radius: 25px;
+ }
+ #cancel-button-add-category{
+  font-size: 35px;
+  width: 16%;
+  padding-top:2%;
+  padding-bottom: 2%;
+  position: absolute;
+  left: 15%;
+  top: 65%;
+ }
+ .menu-item{
+   width: 60%;
+   border-radius: 25px;
+   border-style: solid;
+   border-width: 5px;
+   border-color: rgb(248, 46, 255);
+   align-items: center;
+   justify-content: center;
+   margin-left: auto;
+   margin-right: auto;
+   z-index: 3;
+   margin-top: 3%;
+ }
+ .inner-border-item{
+  height: 99%;
+   width: 99%;
+   z-index: 4;
+   border-radius: 25px;
+   border-style: solid;
+   border-width: 5px;
+   border-color: rgb(248, 46, 255);
+   align-items: center;
+   justify-content: center;
+ }
+ .item-title{
+   font-size: 33px;
+   margin-top: 1%;
+ }
+ .item-description{
+  margin-top: -3%;
+ }
+ .item-price{
+  font-size: 20px;
+ }
+.menu-item-icon{
+  color: rgb(248, 46, 255);
+  padding-bottom: 3%;
+  padding-left: 6%;
+  padding-right: 6%;
+  
+}
+#add-new-menu-item-button{
+  margin-bottom: 15%;
+}
+#add-new-category-button{
+  margin-bottom: 15%;
+  font-family: 'Inter', sans-serif;
+   color: rgb(248, 46, 255);
+   border-radius: 25px;
+   border-style: solid;
+   border-width: 4px;
+   padding-top: 3%;
+   padding-bottom: 3%;
+   font-size: 33px;
+   width: auto;
+   margin-top: 3%;
+   margin-left: auto;
+   margin-right: auto;
+}
+#section-heading{
+  font-size: 33px;
+  margin-top: 5%;
+}
+#menu-item-img{
+  width: 100%; 
+  border-radius: 20px 20px 0px 0px; 
+  z-index: 1; 
+  position: relative;
+}
+#menu-category-clickspace{
+  margin-top: 0%;
+  margin-bottom: 0%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+
+}
+#toppings-for-the-menu{
+  margin-top: 10%;
+  color: rgb(248, 46, 255);
+  font-family: 'Inter', sans-serif;
+}
+#topping-or-side{
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+  font-size: 33px;
+}
+#add-button-topping{
+  font-size: 35px;
+  color: white;
+  background-color: rgb(248, 46, 255);
+  width: 16%;
+  padding-top:2%;
+  padding-bottom: 2%;
+  position: absolute;
+  left: 70%;
+  top: 78%;
+  border-radius: 25px;
+}
+#cancel-button-add-topping{
+  font-size: 35px;
+  width: 16%;
+  padding-top:2%;
+  padding-bottom: 2%;
+  position: absolute;
+  left: 15%;
+  top: 78%;
+}
+#topping-quesitons{
+  margin-left: 35%;
+  margin-top: 5%;
+}
+#first-dollar-sign{
+  position: absolute;
+  top: 45%;
+  left: 32%;
+  font-size: 30px;
+}
+#second-dollar-sign{
+  position: absolute;
+  top: 57%;
+  left: 32%;
+  font-size: 30px;
+}
+#trash-topping{
+  margin-left: 3%;
+}
+#hide-eye-topping{
+  margin-left: 3%;
+}
+#eye-topping{
+  margin-left: 3%;
+}
+.add-image-title-text-new{
+  font-size: 33px;
+}
+#real-button-for-add-new{
+  background-color: rgb(248, 46, 255);
+  color: white;
+  padding: 2%;
+  font-family: 'Inter', sans-serif;
+  font-size: 25px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 25px;
+  cursor: pointer;
+  
+}
+
+#image-preveiwer-add-item{
+  width: 50%;
+  height: auto;
+  margin-left: 23%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: rgb(248, 46, 255);
+  background-color: rgb(219, 219, 219);
+  justify-content: center;
+  align-items: center;
+  margin-top: 7%;
+
+}
+#image-preveiwer-add-item-image{
+  display: none;
+  width: 100%;
+}
+#image-text-add-item{
+  margin-top: 15%;
+  margin-bottom: 15%;
+  font-size: 33px;
+  color: white;
+}
+.new-item-input{
+  margin-left: 25%;
+}
+#add-new-menu-item-button-database{
+  color: white;
+  margin-bottom: 20%;
+  background-color: rgb(248, 46, 255);
+  border-radius: 25px;
+  padding: 2%;
+  margin-top: 5%;
+  font-size: 27px;
+}
+#order-div{
+  padding-bottom: 20%;
+}
+#add-topping-choice-new{
+  font-size: 25px;
+  border-style: solid;
+  border-radius: 25px;
+  width: 30%;
+  padding: 2%;
+  margin-top: 4%;
+  margin-left: 33%;
+}
+#toping-choice-new{
+border-radius: 25px;
+border-color: rgb(248, 46, 255);
+border-style: solid;
+border-width: 4px;
+margin-top: 5%;
+}
+#name-of-choice-title-new{
+  font-family: 'Inter', sans-serif;
+  color: rgb(248, 46, 255);
+  font-size: 25px;
+}
+#new-topping-choice-name{
+margin-left: 27%;
+}
+#type-of-choice-new{
+  margin-top: 3%;
+}
+#topping-new-choice{
+  font-family: 'Inter', sans-serif;
+  color: rgb(248, 46, 255);
+  border-radius: 25px;
+   border-color: rgb(248, 46, 255);
+    border-style: solid;
+    border-width: 2px;
+    width: 30%;
+    margin-left: 34%;
+    margin-top: 2%;
+}
+#edit-toppings-in-choice{
+  font-family: 'Inter', sans-serif;
+  color: rgb(248, 46, 255);
+  font-size: 25px;
+}
+#delete-topping-in-choice{
+  color: red;
+  font-family: 'Inter', sans-serif;
+  font-size: 25px;
+}
+#delete-uploaded-image-new{
+  color: red;
+  font-family: 'Inter', sans-serif;
+  font-size: 25px;
+  margin-bottom: 7%;
+}
+#done-button-add-toppings-new{
+  color: white;
+  background-color: rgb(248, 46, 255);
+  border-radius: 25px;
+  width: 30%;
+  font-size: 33px;
+  margin-left: 35%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+#topping-name-add-new{
+  color:rgb(248, 46, 255);
+  font-size: 33px;
+  font-family: 'Inter', sans-serif;
+}
+#warning-message-add-topping-new{
+  color: red;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+}
+#routing-number-display{
+  width: 70%;
+  color: white;
+  background-color: rgb(182, 182, 182);
+  font-family: 'Inter', sans-serif;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  font-size: 33px;
+  margin-top: 3%;
+  border-radius: 25px;
+  border-style: solid;
+  border-color: rgb(248, 46, 255);
+  margin-left: auto;
+  margin-right: auto;
+}
+#account-number-display{
+  width: 70%;
+  color: white;
+  background-color: rgb(182, 182, 182);
+  font-family: 'Inter', sans-serif;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  font-size: 33px;
+  border-radius: 25px;
+  border-style: solid;
+  border-color: rgb(248, 46, 255);
+  margin-left: auto;
+  margin-right: auto;
+}
+#routing-number-title{
+  margin-top: 0%;
+  margin-bottom: 0%;
+font-size: 33px;
+}
+#account-number-title{
+  margin-top: 0%;
+  margin-bottom: 0%;
+  font-size: 33px;
+}
+#buttons-on-page{
+  margin-top: 10%;
+  display: flex;
+  justify-content: space-around;
+}
+#edit-bank-details-button{
+background-color: rgb(248, 46, 255);
+color: white;
+font-size: 33px;
+padding: 2%;
+border-radius: 25px;
+margin-left: 2%;
+margin-right: 2%;
+}
+#withdraw-money-button{
+background-color: rgb(248, 46, 255);
+color: white;
+font-size: 33px;
+padding: 2%;
+border-radius: 25px;
+margin-left: 2%;
+margin-right: 2%;
+}
+#yes-button-banking{
+  font-size: 35px;
+  color: white;
+  background-color: rgb(248, 46, 255);
+  width: 16%;
+  padding-top:2%;
+  padding-bottom: 2%;
+  position: absolute;
+  left: 70%;
+  top: 65%;
+  border-radius: 25px;
+}
+#cancel-button-banking{
+  font-size: 35px;
+  width: 16%;
+  padding-top:2%;
+  padding-bottom: 2%;
+  position: absolute;
+  left: 15%;
+  top: 65%;
+}
+#new-banking-new-box{
+  margin-top: 6%;
+}
+
+
+#showcase-amount{
+  font-size: 33px;
+}
+.settings-menu-button{
+ font-size: 200%;
+ margin-top: 0%;
+ padding: 3%;
+}
+#search-button-tables{
+  background-color: rgb(248, 46, 255);
+  color: white;
+  font-size: 35px;
+  width: 30%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  border-radius: 25px;
+  margin-left: 35%;
+  margin-top: 10%; 
+}
+#search-for-a-table-title{
+  font-size: 40px;
+  margin-top: 10%;
+}
+#search-for-table{
+  margin-left: 26%;
+  margin-top: 5%;
+}
+#unblock-table-button{
+  font-family: 'Inter', sans-serif;
+  padding: 2%;
+  background-color: rgb(248, 46, 255);
+  width: 30%;
+  color: white;
+  font-size: 30px;
+  border-radius: 25px;
+  margin-left: -3%;
+}
+#block-table-button{
+  font-family: 'Inter', sans-serif;
+  padding: 2%;
+  background-color: rgb(248, 46, 255);
+  width: 30%;
+  color: white;
+  font-size: 30px;
+  border-radius: 25px;
+  margin-left: -3%;
+}
+#order-new-table-button{
+  font-family: 'Inter', sans-serif;
+  padding: 2%;
+  background-color: rgb(248, 46, 255);
+  width: 30%;
+  color: white;
+  font-size: 30px;
+  border-radius: 25px;
+  margin-left: 3%;
+}
+#the-name-table{
+  font-size: 33px;
+}
+#type-title-search-table{
+  font-size: 33px;
+  margin-bottom: 6%;
+}
+#waiters-title{
+  font-size: 40px;
+}
+#waiter-item{
+  margin-top: 2%;
+  border-color: rgb(248, 46, 255);
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+#waiter-name{
+  color:rgb(248, 46, 255);
+  margin-left: 0%;
+  font-size: 100%;
+}
+#pay-waiter-button{
+  color: white;
+  background-color: rgb(248, 46, 255);
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+}
+#add-new-waiter-button{
+  border-radius: 25px;
+  border-style: solid;
+  border-width: 5px;
+  font-family: 'Inter', sans-serif;
+  color: #F82EFF;
+  font-size: 33px;
+  padding: 3%;
+  margin-top: 3%;
+}
+#yes-button-add-waiter{
+  font-size: 35px;
+  color: white;
+  background-color: rgb(248, 46, 255);
+  width: 16%;
+  padding-top:2%;
+  padding-bottom: 2%;
+  position: absolute;
+  left: 70%;
+  top: 65%;
+  border-radius: 25px;
+}
+#cancel-button-add-waiter{
+  font-size: 35px;
+  width: 16%;
+  padding-top:2%;
+  padding-bottom: 2%;
+  position: absolute;
+  left: 15%;
+  top: 65%;
+}
+#add-waiter-title{
+  font-size: 40px;
+  margin-top: 3%;
+}
+#first-name-of-new-waiter-box{
+  margin-top: 6%;
+}
+#last-name-of-new-waiter-box{
+  margin-top: 2%;
+}
+#tips-and-requests{
+  width: 75%;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: flex;
+  gap: 2%;
+  align-items: center;
+  align-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+#edit-menu-div{
+  justify-content: center;
+}
+#table-request{
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 33px;
+  background-color: rgb(248, 46, 255);
+  border-radius: 15px;
+  width: 30%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  flex: 0 0 auto;
+}
+#tip-request{
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 33px;
+  background-color: rgb(0, 207, 0);
+  border-radius: 15px;
+  width: 30%;
+  margin-top: 0.5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  flex: 0 0 auto;
+}
+#access-finance-title{
+  font-size: 200%;
+  margin-top: 0%;
+}
+#from-and-till-title{
+  font-size: 33px;
+}
+#date-input-financial{
+  font-size: 33px; 
+  color:rgb(248, 46, 255);
+}
+#date-input-financial2{
+  font-size: 33px; 
+  color:rgb(248, 46, 255);
+}
+#get-information-button{
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 33px;
+  background-color: rgb(248, 46, 255);
+  border-radius: 25px;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  margin-top: 5%;
+}
+#decide-the-tip{
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  background-color: white;
+  border-color: rgb(248, 46, 255);
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 25px;
+  left: 10%;
+  top: 5%;
+  z-index: 5;
+}
+#the-table-tip{
+  font-size: 50px;
+}
+#waiters-for-tip{
+  overflow: scroll;
+}
+.grey-box-finance{
+background-color: rgb(160, 160, 160);
+font-size: 160%;
+padding: 3%;
+}
+.white-box-finance{
+font-size: 160%;
+padding: 3%;
+}
+
+.waiter-tip{
+  font-family: 'Inter', sans-serif;
+  color: #F82EFF;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 25px;
+  font-size: 33px;
+  margin-bottom: 2%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.datepickforfinance{
+  border: 2px solid rgb(248, 46, 255);
+  border-radius: 25px;
+  padding: 3%;
+  width: 40%;
+  font-size: 33px;
+}
+/*--FOR LOADING  --*/
+.lds-ring {
+  display: inline-block;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  z-index: 10;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid rgb(248, 46, 255);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #F82EFF transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+#banking-info{
+  background-color: rgb(248, 46, 255);
+  color: white;
+  padding: 3%;
+  text-align: center;
+  font-size: 120%;
+  border-radius: 15px;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/*-----------*/
+#backround-loading{
+  background-color: white;
+  opacity: 0.5;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  left: 0%;
+  top: 0%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+}
+
+</style>
+</head>
+<body>
+  <!-- top bar -->
+  <div id="top-white-bar">
+    <p id="restaurant-name" class="pink font"></p>
+
+  </div>
+   
+  
+  <!--left bar -->
+<div id="left-bar">
+  <img id="swiftie-logo" src="img/swiftieLogo.png" alt="logo">
+  <div id="all-tabs">
+<p id="orders-tab" class="font selected spacing-top"><i class="far fa-clipboard spacing"></i>Orders</p>
+<p id="edit-menu-tab" class="font spacing-top"><i class="far fa-edit spacing"></i>Edit Menu</p>
+<p id="finance-tab" class="font spacing-top"><i class="fas fa-search-dollar spacing"></i>Finance</p>
+<p id="withdraw-tab" class="font spacing-top"><i class="fas fa-dollar-sign spacing"></i>Payouts</p>
+<p id="settings-tab" class="font spacing-top"><i class="fas fa-cog spacing"></i>Settings</p>
+</div>
+</div>
+
+<!-- bottom bar -->
+<div id="bottom-bar">
+  <div id="text-bottom-bar">
+  <p id="waiter-requested" class="font">Waiter Requested:</p>
+  <p id="tap-dismiss" class="font">(Tap to dismiss)</p>
+</div>
+  <div id="tips-and-requests"></div>
+
+</div>
+
+
+
+<!-- order div -->
+<div id="order-div" class="right-box"></div>
+
+
+
+<!-- edit menu div -->
+<div id="edit-menu-div" class="right-box hidden">
+  <div id="menu-items-button">Menu Items</div>
+  <div id="toppings-sides-button" >Toppings/Sides</div>
+  <div id="back-to-toping-and-menu" class="back-button hidden"> < Back</div>
+  <div id="menu-categories" class="hidden">
+</div>
+<div id="toppings-for-the-menu" class="hidden">
+
+</div>
+<div class="hidden" id="add-new-category-button">+ Add New</div>
+<div class="menu-edit-category hidden" id="add-new-topping-button">+ Add New</div>
+
+</div>
+
+<!--edit item in category--> 
+<div id="edit-item-menu-div" class="right-box hidden">
+  
+  <div id="back-to-sections" class="back-button"> < Back</div>
+  <div class="pink heading-font" id="section-heading">Section Name</div>
+  <div id="menu-items">
+</div>
+<div class="menu-edit-category" id="add-new-menu-item-button">+ Add New</div>
+</div>
+
+<!--add a new food item-->
+<div id="food-item-add" class="right-box hidden">
+  <div id="back-to-edit-menu-in-category" class="back-button"> < Back</div>
+  <p class="heading-font pink add-image-title-text-new">Add an Image</p>
+  <p id="delete-uploaded-image-new" class="hidden">Delete Image</p>
+  <input type="file" accept="image/png, image/gif, image/jpeg" id="file-add-new-menu-item" hidden/>
+  <label for="file-add-new-menu-item" id="real-button-for-add-new">Choose File</label>
+
+  <div id="image-preveiwer-add-item">
+    <p class="font" id="image-text-add-item">Image Not Selected</p>
+    <img id="image-preveiwer-add-item-image" src="" alt="image preveiw">
+  </div>
+  <p class="heading-font pink add-image-title-text-new">Add an Title</p>
+  <!-- title input for item -->
+  <div class="form__group field new-item-input" id="new-item-new-box">
+    <input type="text" class="form__field" placeholder="Item Name" id="new-item-menu" required/>
+    <label for="new-item-menu" class="form__label">Item Name</label>
+  </div>
+  <p class="heading-font pink add-image-title-text-new">Add a Description</p>
+  <!-- description input for item -->
+  <div class="form__group field new-item-input" id="new-item-description-box">
+    <input type="text" class="form__field" placeholder="Description" id="new-item-decription" required/>
+    <label for="new-item-decription" class="form__label">Description</label>
+  </div>
+  <p class="heading-font pink add-image-title-text-new">Cost To Make</p>
+  <!-- cost to make input -->
+  <div class="form__group field new-item-input" id="new-item-cost-to-make-box">
+    <input type="number" class="form__field" placeholder="Cost to Make($)" id="new-item-cost-to-make" required/>
+    <label for="new-item-cost-to-make" class="form__label">Cost to Make($)</label>
+  </div>
+  <p class="heading-font pink add-image-title-text-new">Selling Price</p>
+  <!-- cost to make input -->
+  <div class="form__group field new-item-input" id="new-item-cost-to-make-box">
+    <input type="number" class="form__field" placeholder="Selling Price($)" id="new-item-selling-price" required/>
+    <label for="new-item-selling-price" class="form__label">Selling Price($)</label>
+  </div>
+  <div id="toping-for-item-list-new"></div>
+  <p id="add-topping-choice-new" class="font pink">+Add Topping Choice</p>
+  <!-- add new item to menu button-->
+  <p id="add-new-menu-item-button-database" class="heading-font">Add Item</p>
+</div>
+
+<!--add topping to your choice of toppings-->
+<div id="add-toppings-to-new-item-screen" class="right-box hidden">
+<p id="done-button-add-toppings-new" class="font">Done</p>
+<div id="list-of-topping-to-add">
+</div>
+</div>
+
+<div id="decide-the-tip" class="hidden">
+<p id="the-table-tip" class="heading-font pink">Pick waiter that served Table 5</p>
+<p id="id-of-the-tip" class="hidden"></p>
+<div id="waiters-for-tip">
+<div class="waiter-tip" id="choose-later-button">Choose Later</div>
+</div>
+</div>
+
+<!--finance div-->
+<div id="finance-div" class="right-box hidden">
+  <p class="heading-font pink" id="access-finance-title">Access your Financial Information for Taxes</p>
+  <p class="pink font" id="from-and-till-title">Pick Range:</p><input type="text" id="datepicker" class="datepickforfinance"/>
+  <div id="get-information-button">Get Information</div>
+</div>
+
+<!--finance info div (shows actual information)-->
+<div id="finance-info-div" class="right-box hidden">
+  <p class="heading-font pink" id="access-finance-title"><span id="2resname"></span> tax information</p>
+  <div id="revenue-span" class="grey-box-finance font">Revenue: $<span id="revenue-number"></span></div>
+  <div id="costs-span" class="white-box-finance font">Costs: $<span id="costs-number"></span></div>
+  <div id="profit-span" class="grey-box-finance font">Profit: $<span id="profit-number"></span></div>
+  <div id="sales-tax-span" class="white-box-finance font">Sales Tax: $<span id="sales-tax-number"></span></div>
+</div>
+
+<!--withdraw money div-->
+<div id="withdraw-money" class="right-box hidden">
+  <div id="banking-info" class="font">Create/Update Banking Information</div>
+</div>
+
+  <!-- settings home -->
+<div id="settings-tab-home" class="right-box hidden">
+ <div class="settings-menu-button heading-font green hidden" id="open-button">Status: Open (Click to close)</div>
+ <div class="settings-menu-button heading-font red" id="close-button">Status: Closed (Click to open)</div>
+ <div class="settings-menu-button heading-font pink" id="manage-tables-button">Manage Tables</div>
+ <div class="settings-menu-button heading-font pink" id="manage-waiters-button">Manage Waiters Tips</div>
+ <div class="settings-menu-button heading-font pink" id="preveiw-menu-button">Preveiw</div>
+ <div class="settings-menu-button heading-font red" id="logout-button">Logout</div>
+</div>
+
+<!-- manage tables home -->
+<div id="search-for-a-table" class="right-box hidden">
+  <div class="back-button" id="back-from-search-table"> < Back</div>
+  <p id="search-for-a-table-title" class="heading-font pink">Search for a table:</p>
+  <div class="form__group field" id="search-for-table">
+    <input type="number" class="form__field" placeholder="Enter Table Number" id="table-number-search" required/>
+    <label for="table-number-search" class="form__label">Enter Table Number</label>
+  </div>
+  <p id="search-button-tables" class="font">Search</p>
+  <p class="red font hidden" id="table-warning-no-exist">Table does not exist</p>
+  <p class="font">If you want to add more tables please contact us</p>
+</div>
+
+<!-- search tables -->
+<div id="table-found" class="right-box hidden">
+  <div class="back-button" id="back-button-to-search-table"> < Back</div>
+  <p id="the-name-table" class="heading-font pink">Table: <span id="number-of-table-title"></span></p>
+  <p class="heading-font pink" id="type-title-search-table">Type: <span id="type-of-table-span"></span></p>
+  <p><span id="block-table-button" class="hidden">Block Table</span><span id="unblock-table-button">Unblock Table</span><span id="order-new-table-button">Order New</span></p>
+</div>
+
+<!-- look at waiters -->
+<div id="list-of-waiters-right-box" class="right-box hidden">
+  <div class="back-button" id="back-button-to-main-settings-menu"> < Back</div>
+  <p id="waiters-title" class="heading-font pink">Waiters</p>
+  <div id="waiters-list">
+  </div>
+  <div id="add-new-waiter-button"> + Add a waiter</div>
+</div>
+
+<!-- add waiter alert box-->
+<div id="alert-add-waiter" class="alert-box hidden">
+  <div class="heading-font pink" id="add-waiter-title">Add a Waiter</div>
+
+  <div class="form__group field new-item-input" id="first-name-of-new-waiter-box">
+    <input type="text" class="form__field" placeholder="First Name" id="first-name-waiter" required/>
+    <label for="first-name-waiter" class="form__label">First Name</label>
+  </div>
+
+  <div class="form__group field new-item-input" id="last-name-of-new-waiter-box">
+    <input type="text" class="form__field" placeholder="Last Name" id="last-name-waiter" required/>
+    <label for="last-name-waiter" class="form__label">Last Name</label>
+  </div>
+
+  <div id="yes-button-add-waiter" class="font">Yes</div>
+  <div id="cancel-button-add-waiter" class="font">Cancel</div>
+  </div>
+
+<!-- delete category alert box-->
+<div id="alert-box-category" class="alert-box hidden">
+  <div class="heading-font pink" id="question-category">Are you sure you want to delete this category?</div>
+  <div id="yes-button-category" class="font">Yes</div>
+  <div id="cancel-button-category" class="font">Cancel</div>
+  </div>
+
+  <!-- add category alert box-->
+  <div id="alert-box-add-category" class="hidden alert-box">
+    <div class="heading-font pink" id="question-category">Add A Category</div>
+  
+    <div class="form__group field" id="new-category-name-box">
+      <input type="text" class="form__field" placeholder="Category Name" id="new-category-name" required/>
+      <label for="new-category-name" class="form__label">Category Name</label>
+    </div>
+    <div id="add-button-category" class="font">Add</div>
+    <div id="cancel-button-add-category" class="font">Cancel</div>
+</div>
+
+  <!-- add topping alert box-->
+  <div id="alert-box-add-topping" class="hidden alert-box">
+    <div class="heading-font pink" id="question-category">Add A Topping</div>
+  
+    <div id="topping-quesitons">
+    <div class="form__group field" id="new-topping-name-box">
+      <input type="text" class="form__field" placeholder="Topping Name" id="new-topping-name" required/>
+      <label for="new-topping-name" class="form__label">Topping Name</label>
+    </div>
+    <i class="fas fa-dollar-sign pink" id="first-dollar-sign"></i>
+    <i class="fas fa-dollar-sign pink" id="second-dollar-sign"></i>
+    <div class="form__group field" id="new-topping-price-make-box">
+      <input type="number" class="form__field" placeholder="Cost to make" id="new-topping-price-make" required/>
+      <label for="new-topping-price-make" class="form__label">Cost to make</label>
+    </div>
+    <div class="form__group field" id="new-topping-price-sell-box">
+      <input type="number" class="form__field" placeholder="Selling Price" id="new-topping-price-sell" required/>
+      <label for="new-topping-price-sell" class="form__label">Selling Price</label>
+    </div>
+  </div>
+  <p class="red font hidden" id="error-message-toppings">Error, sale price must be greater than or equal to cost to make</p>
+    <div id="add-button-topping" class="font">Add</div>
+    <div id="cancel-button-add-topping" class="font">Cancel</div>
+</div>
+
+
+
+<script src="database.js"></script>
+<script>
+
+var currentClientID;
+var resEmail;
+
+//adding variables from dom
+//different tabs on left menu
+var ordersTab = document.getElementById("orders-tab");
+var editMenuTab = document.getElementById("edit-menu-tab");
+var financeTab = document.getElementById("finance-tab");
+var withdrawTab = document.getElementById("withdraw-tab");
+var settingsTab = document.getElementById("settings-tab");
+//----------------------------
+
+//different page div variables
+var orderDiv = document.getElementById("order-div");
+var editMenuDiv = document.getElementById("edit-menu-div");
+//----------------------------
+
+//other
+var menuItems = document.getElementById("menu-items-button");
+var toppingsSidesBttn = document.getElementById("toppings-sides-button");
+var backToTppingAndMenu = document.getElementById("back-to-toping-and-menu");
+var swiftieLogo = document.getElementById("swiftie-logo");
+var restaurantName = document.getElementById("restaurant-name");
+var menuCategories = document.getElementById("menu-categories");
+var addNewCategoryBttn = document.getElementById("add-new-category-button");
+
+
+//left tab click functions
+//function to remove all selections
+var removeSelection = function(){
+  ordersTab.classList.remove("selected");
+  orderDiv.classList.add("hidden");
+  editMenuTab.classList.remove("selected");
+  editMenuDiv.classList.add("hidden");
+  financeTab.classList.remove("selected");
+  withdrawTab.classList.remove("selected");
+  settingsTab.classList.remove("selected");
+  //other things to hide
+  document.getElementById('edit-item-menu-div').classList.add('hidden');
+  document.getElementById('food-item-add').classList.add('hidden');
+  document.getElementById('withdraw-money').classList.add('hidden');
+  document.getElementById('settings-tab-home').classList.add('hidden');
+  document.getElementById('search-for-a-table').classList.add('hidden');
+  document.getElementById('table-found').classList.add('hidden');
+  document.getElementById('finance-div').classList.add('hidden');
+  document.getElementById('finance-info-div').classList.add('hidden');
+}
+
+//orders clickfunction
+ordersTab.addEventListener('click', function(){
+  removeSelection();
+  ordersTab.classList.add("selected");
+  orderDiv.classList.remove("hidden");
+
+})
+//settings clicked
+document.getElementById('settings-tab').addEventListener('click', function(){
+removeSelection();
+document.getElementById('settings-tab').classList.add("selected");
+document.getElementById('settings-tab-home').classList.remove('hidden');
+})
+//manage tables clicked
+document.getElementById('manage-tables-button').addEventListener('click', function(){
+  document.getElementById('settings-tab-home').classList.add('hidden');
+  document.getElementById('search-for-a-table').classList.remove('hidden');
+})
+//back button from searched table
+document.getElementById('back-button-to-search-table').addEventListener('click', function(){
+  document.getElementById('table-found').classList.add('hidden');
+  document.getElementById('search-for-a-table').classList.remove('hidden');
+  document.getElementById('table-number-search').value = '';
+})
+//edit menu click function
+editMenuTab.addEventListener('click', function(){
+  removeSelection();
+  editMenuTab.classList.add("selected");
+  editMenuDiv.classList.remove("hidden");
+})
+//finance tab clicked 
+financeTab.addEventListener('click', function(){
+  removeSelection();
+  document.getElementById('finance-div').classList.remove('hidden');
+  financeTab.classList.add("selected");
+})
+//menu items click
+menuItems.addEventListener('click', function(){
+  toppingsSidesBttn.classList.add("hidden");
+  menuItems.classList.add("hidden");
+  backToTppingAndMenu.classList.remove("hidden");
+  menuCategories.classList.remove("hidden");
+  addNewCategoryBttn.classList.remove("hidden");
+})
+//toppings and sides clicked
+toppingsSidesBttn.addEventListener('click', function(){
+  toppingsSidesBttn.classList.add("hidden");
+  menuItems.classList.add("hidden");
+  backToTppingAndMenu.classList.remove("hidden");
+  document.getElementById('toppings-for-the-menu').classList.remove('hidden');
+  document.getElementById('add-new-topping-button').classList.remove('hidden');
+})
+//withdraw money click
+document.getElementById('withdraw-tab').addEventListener('click', function(){
+  removeSelection();
+  document.getElementById('withdraw-tab').classList.add('selected');
+  document.getElementById('withdraw-money').classList.remove('hidden');
+})
+//back button to settings menu from waiters
+document.getElementById('back-button-to-main-settings-menu').addEventListener('click', function(){
+  document.getElementById('list-of-waiters-right-box').classList.add('hidden');
+  document.getElementById('settings-tab-home').classList.remove('hidden');
+})
+
+//first back button clicked
+backToTppingAndMenu.addEventListener('click', function(){
+  backToTppingAndMenu.classList.add("hidden");
+  menuItems.classList.remove("hidden");
+  toppingsSidesBttn.classList.remove("hidden");
+  menuCategories.classList.add("hidden");
+  addNewCategoryBttn.classList.add("hidden");
+  document.getElementById('toppings-for-the-menu').classList.add('hidden');
+  document.getElementById('add-new-topping-button').classList.add('hidden');
+})
+//back button to go back to sections
+document.getElementById('back-to-sections').addEventListener('click', function(){
+  document.getElementById('edit-menu-div').classList.remove('hidden');
+  document.getElementById('edit-item-menu-div').classList.add('hidden');
+})
+//add new topping button
+document.getElementById('add-new-topping-button').addEventListener('click', function(){
+  document.getElementById('alert-box-add-topping').classList.remove('hidden');
+})
+//cancel add topping button
+document.getElementById('cancel-button-add-topping').addEventListener('click', function(){
+  document.getElementById('alert-box-add-topping').classList.add('hidden');
+  document.getElementById('new-topping-name').value = '';
+  document.getElementById('new-topping-price-make').value = '';
+  document.getElementById('new-topping-price-sell').value = '';
+})
+//choose later button from tip 
+document.getElementById('choose-later-button').addEventListener('click', function(){
+  document.getElementById('decide-the-tip').classList.add('hidden');
+  document.querySelector('.selected-tip').classList.remove('selected-tip');
+})
+//add new food item click
+document.getElementById('add-new-menu-item-button').addEventListener('click', function(){
+  document.getElementById('food-item-add').classList.remove('hidden');
+  document.getElementById('edit-item-menu-div').classList.add('hidden');
+  document.getElementById('toping-for-item-list-new').innerHTML = "";
+  document.getElementById('image-text-add-item').classList.remove('hidden');
+})
+//back from search tables button
+document.getElementById('back-from-search-table').addEventListener('click', function(){
+  document.getElementById('search-for-a-table').classList.add('hidden');
+  document.getElementById('table-number-search').value = '';
+  document.getElementById('settings-tab-home').classList.remove('hidden');
+})
+//show add waiters alert box
+document.getElementById('add-new-waiter-button').addEventListener('click', function(){
+  document.getElementById('alert-add-waiter').classList.remove('hidden');
+})
+//cancel button add waiter alert box
+document.getElementById('cancel-button-add-waiter').addEventListener('click', function(){
+  document.getElementById('alert-add-waiter').classList.add('hidden');
+  document.getElementById('list-of-waiters-right-box').classList.remove('hidden');
+  document.getElementById('first-name-waiter').value = '';
+  document.getElementById('last-name-waiter').value = '';
+})
+
+var fileNew = {}; //var used to store data for image
+//back button from making food item
+document.getElementById('back-to-edit-menu-in-category').addEventListener('click', function() {
+  fileNew = {};
+  document.getElementById('food-item-add').classList.add('hidden');
+  document.getElementById('edit-item-menu-div').classList.remove('hidden');
+  document.getElementById('file-add-new-menu-item').value = "";
+  document.getElementById('image-preveiwer-add-item-image').style.display = "none";
+  document.getElementById('delete-uploaded-image-new').classList.add('hidden');
+  document.getElementById('image-text-add-item').classList.remove('hidden');
+  document.getElementById('new-item-menu').value = "";
+  document.getElementById('new-item-decription').value = "";
+  document.getElementById('new-item-cost-to-make').value = "";
+  document.getElementById('new-item-selling-price').value = "";
+  document.getElementById('toping-for-item-list-new').innerHTML = "";
+
+})
+
+var picker = new Lightpick({
+    field: document.getElementById('datepicker'),
+    singleDate: false,
+    minDays: 1,
+    maxDays: 150,
+    maxDate: new Date(),
+    onSelect: function(start, end){
+        var str = '';
+        str += start ? start.format('Do MMMM YYYY') + ' to ' : '';
+        str += end ? end.format('Do MMMM YYYY') : '...';
+        document.getElementById('result-9').innerHTML = str;
+    }
+});
+//delete the image new 
+document.getElementById('delete-uploaded-image-new').addEventListener('click', function(){
+  fileNew = {};
+  document.getElementById('file-add-new-menu-item').value = "";
+  document.getElementById('image-preveiwer-add-item-image').style.display = "none";
+  document.getElementById('delete-uploaded-image-new').classList.add('hidden');
+  document.getElementById('image-text-add-item').classList.remove('hidden');
+    })
+
+//image reader function 
+document.getElementById('file-add-new-menu-item').addEventListener('change', function(e){
+  fileNew = e.target.files[0];
+
+  if(fileNew){
+    const reader = new FileReader();
+    document.getElementById('image-text-add-item').classList.add('hidden');
+    document.getElementById('image-preveiwer-add-item-image').style.display = "block";
+    reader.addEventListener('load', function(){
+      document.getElementById('image-preveiwer-add-item-image').setAttribute("src", reader.result);
+    })
+    reader.readAsDataURL(fileNew);
+    document.getElementById('delete-uploaded-image-new').classList.remove('hidden');
+    
+  }else{
+    fileNew = {};
+    document.getElementById('image-preveiwer-add-item-image').style.display = "none";
+    document.getElementById('image-preveiwer-add-item-image').setAttribute("src", "");
+    document.getElementById('delete-uploaded-image-new').classList.add('hidden');
+  }
+})
+//table requests
+var user
+
+var selectedSection;
+var toppings = [];
+
+//function creates a choice box in add new
+document.getElementById('add-topping-choice-new').addEventListener('click', function(){
+ var mainBox = document.createElement("div");
+ mainBox.id = "toping-choice-new";
+ var mainTitle = document.createElement("p");
+ mainTitle.id = "name-of-choice-title-new";
+ mainTitle.innerText = "Name of Choice (Example: Choice of Fries, etc.)";
+ var choiceNameInputbox = document.createElement("div");
+ choiceNameInputbox.classList.add("form__group");
+ choiceNameInputbox.classList.add("field");
+ choiceNameInputbox.id = "new-topping-choice-name";
+ var nameInput = document.createElement("input");
+ nameInput.type = "text";
+ nameInput.classList.add("form__field");
+ nameInput.placeholder = "Name (Example: Choice of Fries)";
+ nameInput.id = "new-item-topping-choice";
+ var labelForNameInput = document.createElement("label");
+ labelForNameInput.htmlFor = "new-item-topping-choice";
+ labelForNameInput.classList.add("form__label");
+ labelForNameInput.innerText = "Name (Example: Choice of Fries)";
+ var selector = document.createElement("select");
+ selector.id = "type-of-choice-new";
+ var firstOption = document.createElement("option");
+ firstOption.value = "one choice";
+ firstOption.text = "One Choice(Customer can only pick one of the choice)";
+ var secondOption = document.createElement("option");
+ secondOption.value = "multiple choice";
+ secondOption.text = "Multiple Choice (Customer can choose multiple of these)";
+ var toppingsInChoice = document.createElement("div");
+ toppingsInChoice.id = "toppings-in-choice";
+ var warningMessage = document.createElement("p");
+ warningMessage.id = 'warning-message-add-topping-new';
+ warningMessage.innerText = "Add the Name of Choice to continue... ";
+ warningMessage.classList.add('hidden');
+ var addChoicesBttn = document.createElement("p");
+ addChoicesBttn.id = "edit-toppings-in-choice";
+ addChoicesBttn.innerText = "+ Add Choices";
+ var deleteSelectionBttn = document.createElement("p");
+ deleteSelectionBttn.id = "delete-topping-in-choice";
+ deleteSelectionBttn.innerText = "Delete";
+ choiceNameInputbox.appendChild(nameInput);
+ choiceNameInputbox.appendChild(labelForNameInput);
+ selector.appendChild(firstOption);
+ selector.appendChild(secondOption);
+ mainBox.appendChild(mainTitle);
+ mainBox.appendChild(choiceNameInputbox);
+ mainBox.appendChild(selector);
+ mainBox.appendChild(toppingsInChoice);
+ mainBox.appendChild(warningMessage);
+ mainBox.appendChild(addChoicesBttn);
+ mainBox.appendChild(deleteSelectionBttn);
+ document.getElementById("toping-for-item-list-new").appendChild(mainBox);
+//-------------------------------
+//delete funciton 
+deleteSelectionBttn.addEventListener('click', function(){
+  deleteSelectionBttn.parentElement.remove();
+})
+// add choices button
+addChoicesBttn.addEventListener('click', function(){
+  if(nameInput.value.length >= 1){
+    
+  warningMessage.classList.add('hidden');
+  document.getElementById('add-toppings-to-new-item-screen').classList.remove('hidden');
+  document.getElementById('food-item-add').classList.add('hidden');
+  toppingsInChoice.innerHTML = "";
+  selectedSection = nameInput.value;
+  mainBox.id = "selected";
+  toppings = [];
+  }else{
+    warningMessage.classList.remove('hidden');
+  }
+})
+
+})
+//done button event listener
+document.getElementById('done-button-add-toppings-new').addEventListener('click', function(){
+  var print = document.getElementById('selected');
+  
+  var list = document.getElementById('list-of-topping-to-add').childNodes.length;
+  
+  for(var i = 1; i < list; i++){
+    document.getElementById('list-of-topping-to-add').childNodes[i].classList.remove('green');
+    document.getElementById('list-of-topping-to-add').childNodes[i].style.color = "rgb(248, 46, 255)";
+
+  }
+
+  for(var i = 0; i < toppings.length; i++){
+    var theChoice = document.createElement("div");
+    theChoice.id = "topping-new-choice";
+    theChoice.innerText = toppings[i];
+    print.childNodes[3].appendChild(theChoice);
+  }
+  print.id = "toping-choice-new";
+
+  document.getElementById('add-toppings-to-new-item-screen').classList.add('hidden');
+  document.getElementById('food-item-add').classList.remove('hidden');
+  toppings = [];
+
+})
+
+
+//load each topping on new page
+var loadToppingForChoice = function(name, position){
+  if(name != 'placeholder'){
+var option = document.createElement("p");
+option.id = "topping-name-add-new";
+option.innerText = name;
+document.getElementById('list-of-topping-to-add').appendChild(option);
+option.addEventListener('click', function(){
+  if(option.classList.contains('green')){
+    var number = toppings.indexOf(option.innerText);
+    toppings.splice(number,1);
+    option.style.color = "rgb(248, 46, 255)";
+    option.classList.remove('green');
+  }else{
+  toppings.push(option.innerText);
+  option.style.color = "rgb(92, 228, 92)";
+  option.classList.add('green');
+  }
+  
+})
+
+}
+
+}
+
+//logout button
+document.getElementById('logout-button').addEventListener('click', function(){
+  firebase.auth().signOut();
+})
+
+//get financial information bttn 
+document.getElementById('get-information-button').addEventListener('click', function(){
+  if (document.getElementById('datepicker').value.length === 23){
+    var firstDate = new Date (document.getElementById('datepicker').value.substring(6, 10) + ',' + document.getElementById('datepicker').value.substring(3, 5) + ',' + document.getElementById('datepicker').value.substring(0, 2));
+    console.log(firstDate);
+    var financeInfo = {
+      profit: null,
+      salesTax: null,
+      revenue: null,
+      cost: null
+    }
+    var docLength = 0;
+    var secondDate = new Date (document.getElementById('datepicker').value.substring(19) + ',' + document.getElementById('datepicker').value.substring(16, 18) + ',' + document.getElementById('datepicker').value.substring(13, 15));
+    console.log(secondDate);
+    db.collection('users/' + resEmail + '/finance').where('time', '>=', firstDate).where('time', '<=', secondDate).get().then((querySnapshot)=>{
+      querySnapshot.docs.forEach((doc)=>{
+        financeInfo.profit = financeInfo.profit + doc.data().profit;
+        financeInfo.salesTax = financeInfo.salesTax + doc.data().salesTax;
+        financeInfo.revenue = financeInfo.revenue + doc.data().revenue;
+        financeInfo.cost = financeInfo.cost + doc.data().cost;
+        docLength = docLength + 1;
+        if(docLength === querySnapshot.docs.length){
+        document.getElementById('profit-number').innerText = financeInfo.profit.toFixed(2);
+        document.getElementById('sales-tax-number').innerText = financeInfo.salesTax.toFixed(2);
+        document.getElementById('revenue-number').innerText = financeInfo.revenue.toFixed(2);
+        document.getElementById('costs-number').innerText = financeInfo.cost.toFixed(2);
+        document.getElementById('finance-div').classList.add('hidden');
+        document.getElementById('finance-info-div').classList.remove('hidden');
+        }
+      })
+
+    })
+    
+  }
+})
+
+//function creates a waiter
+var createWaiter = function(email, name, amount){
+var waiterItem = document.createElement("div");
+waiterItem.id = 'waiter-item';
+var waiterTitle = document.createElement("p");
+waiterTitle.innerText = name;
+waiterTitle.id = 'waiter-name';
+waiterTitle.classList.add('font');
+var amountOwedText = document.createElement("span");
+amountOwedText.classList.add('pink');
+amountOwedText.classList.add('font');
+amountOwedText.id = 'amount-owed-text';
+amountOwedText.innerText = 'Tips owed: $';
+var actualAmount = document.createElement("span");
+actualAmount.id = 'actual-amount-of-tips';
+actualAmount.innerText = amount;
+var payButton = document.createElement("span");
+payButton.id = 'pay-waiter-button';
+payButton.innerText = 'Pay';
+var trash = document.createElement("i");
+trash.classList.add('pink');
+trash.id = 'delete-waiter-bttn';
+trash.classList.add("fas");
+trash.classList.add("fa-trash");
+//------
+amountOwedText.appendChild(actualAmount);
+waiterItem.appendChild(waiterTitle);
+waiterItem.appendChild(amountOwedText);
+waiterItem.appendChild(payButton);
+waiterItem.appendChild(trash);
+document.getElementById('waiters-list').appendChild(waiterItem);
+//----
+if(name == 'placeholder'){
+  waiterItem.remove();
+}
+trash.addEventListener('click',function(){
+    if(amount == 0){
+      db.collection('users/' + email + '/waiters').doc(name).delete();
+    }else{
+      alert('All tips to this waiter must be paid before you can delete them');
+    }
+})
+payButton.addEventListener('click', function(){
+  db.collection('users/' + email + '/waiters').doc(name).update({
+    amount: 0
+  })
+})
+};
+
+
+
+//function creates a section
+
+var addNewCategory = function(categoryName, visible, position, length, email){
+                  
+                var listID = categoryName.split(" ").join("");
+                  var mainBox = document.createElement("div");
+                  var clickSpace = document.createElement("p");
+                  clickSpace.id = 'menu-category-clickspace';
+                  clickSpace.innerText = categoryName;
+                  mainBox.setAttribute('list-id', listID);
+                  mainBox.classList.add("menu-edit-category");
+                  var hideEye = document.createElement("i");
+                  hideEye.classList.add("fas");
+                  hideEye.classList.add("fa-eye-slash");
+                  hideEye.id = "hide-menu-category";
+                  var eye = document.createElement("i");
+                  eye.classList.add("fa");
+                  eye.classList.add("fa-eye");
+                  eye.classList.add("hidden");
+                  eye.id = "show-menu-category";
+                  var trash = document.createElement("i");
+                  trash.classList.add("fas");
+                  trash.classList.add("fa-trash");
+                  trash.id = "delete-menu-category";
+                  var arrowUp = document.createElement("i");
+                  arrowUp.classList.add("fas");
+                  arrowUp.classList.add("fa-arrow-up");
+                  arrowUp.id = "arrow-up-category";
+                  var arrowDown = document.createElement("i");
+                  arrowDown.classList.add("fas");
+                  arrowDown.classList.add("fa-arrow-down");
+                  arrowDown.id = "arrow-down-category";
+                  mainBox.appendChild(clickSpace);
+                  mainBox.appendChild(hideEye);
+                  mainBox.appendChild(eye);
+                  mainBox.appendChild(trash);
+                  mainBox.appendChild(arrowUp);
+                  mainBox.appendChild(arrowDown);
+                  menuCategories.appendChild(mainBox);
+
+                  //sets visibility
+                if(visible){
+                mainBox.classList.remove("transparent");
+                hideEye.classList.remove("hidden");
+                eye.classList.add("hidden");
+              } else{
+                mainBox.classList.add("transparent");
+                hideEye.classList.add("hidden");
+                eye.classList.remove("hidden");
+              }
+              
+                //sets top postiion
+                if(length == 2){
+                  arrowUp.classList.add("hidden");
+                  arrowDown.classList.add("hidden");
+                }else if (position == 1){
+                  arrowUp.classList.add("hidden");
+                }else{
+                  arrowUp.classList.remove('hidden');
+                }
+                //hides last down arrow
+                if(position == length - 1){
+                arrowDown.classList.add("hidden");
+               }
+               
+               //hides placeholder
+               if(position <= 0){
+                  arrowUp.parentElement.classList.add("hidden");
+                }
+              
+              
+
+      //hide eye function
+hideEye.addEventListener('click', function(){
+  var name = hideEye.parentElement.innerText;
+  db.collection('users/' + email + '/sections').doc(name).update({
+    visible: false
+  })
+})
+
+//eye function
+eye.addEventListener('click', function(){
+  var name = eye.parentElement.innerText;
+  db.collection('users/' + email + '/sections').doc(name).update({
+    visible: true
+  })
+}) 
+//delete function
+trash.addEventListener('click', function() {
+  var name = trash.parentElement.innerText;
+  document.getElementById('alert-box-category').classList.remove('hidden');
+  document.getElementById('yes-button-category').addEventListener('click', function(){
+
+    //delete food and choices associated with section
+    db.collection('users/' + email + '/food').where("section", "==", name).get().then((querySnapshot)=>{
+      querySnapshot.docs.forEach((doc)=>{
+        if(doc.data().imgURL == ''){//when no image
+          db.collection('users/' + email + '/food').doc(doc.id).delete();
+        }else{//with image
+          storageRef.child('users/' + email + '/' + doc.data().name).delete().then(()=>{
+          db.collection('users/' + email + '/food').doc(doc.id).delete();
+        })
+        }
+       
+      })
+    })
+    db.collection('users/' + email + '/choices').where("section", "==", name).get().then((querySnapshot)=>{
+      querySnapshot.docs.forEach((doc)=>{
+        db.collection('users/' + email + '/choices').doc(doc.id).delete();
+      })
+    })
+    //deleting section
+    if(length == 2){ 
+      db.collection('users/' + email + '/sections').doc(name).delete();
+    }else{
+      
+      db.collection('users/' + email + '/sections').doc(name).get().then((snapshot) =>{
+        var origPosish = snapshot.data().position;
+        
+        db.collection('users/' + email + '/sections').where("position", ">", origPosish).get().then((querySnapshot) =>{
+          querySnapshot.forEach((doc) => {
+            db.collection('users/' + email + '/sections').doc(doc.id).update({
+              position: firebase.firestore.FieldValue.increment(-1)
+            })
+          })
+        })
+        db.collection('users/' + email + '/sections').doc(name).delete();
+        
+      })
+    }
+    
+    document.getElementById('alert-box-category').classList.add('hidden');
+  })
+  document.getElementById('cancel-button-category').addEventListener('click', function(){
+    document.getElementById('alert-box-category').classList.add('hidden');
+  })
+  
+})
+//arrow up function
+arrowUp.addEventListener('click', function(){
+  var docName = arrowUp.parentElement.innerText;
+
+  db.collection('users/' + email + '/sections').doc(docName).get().then((snapshot)=>{
+  
+    var origPos = snapshot.data().position - 1;
+    db.collection('users/' + email + '/sections').where("position", "==", origPos).get().then((querySnapshot)=>{
+      querySnapshot.forEach((doc) => {
+        db.collection('users/' + email + '/sections').doc(doc.id).update({
+          position: firebase.firestore.FieldValue.increment(1)
+        }).then(db.collection('users/' + email + '/sections').doc(docName).update({
+    position: firebase.firestore.FieldValue.increment(-1)
+  }))
+      })
+    })
+    
+  
+  })
+})
+
+//arrow down function
+arrowDown.addEventListener('click', function(){
+  var docName = arrowDown.parentElement.innerText;
+  db.collection('users/' + email + '/sections').doc(docName).get().then((snapshot)=>{
+  
+    var origPos = snapshot.data().position + 1;
+    db.collection('users/' + email + '/sections').where("position", "==", origPos).get().then((querySnapshot)=>{
+      querySnapshot.forEach((doc) => {
+        db.collection('users/' + email + '/sections').doc(doc.id).update({
+          position: firebase.firestore.FieldValue.increment(-1)
+        }).then(db.collection('users/' + email + '/sections').doc(docName).update({
+    position: firebase.firestore.FieldValue.increment(1)
+  }))
+      })
+    })
+    
+  
+  })
+})
+
+
+var loadMenuItems = function(docName, docDesc, imageURL, Price, visible, length, email, position){
+var menuItem = document.createElement("div");
+var clickSpace2 = document.createElement("div");
+menuItem.id = 'menu-item';
+menuItem.classList.add('menu-item');
+
+var image = document.createElement("img");
+image.id = "menu-item-img";
+image.src = imageURL;
+
+var title = document.createElement("p");
+title.innerText = docName;
+title.classList.add('heading-font');
+title.classList.add('pink');
+title.classList.add('item-title');
+var description = document.createElement("p");
+description.innerText = docDesc;
+description.classList.add('font');
+description.classList.add('item-description');
+var price = document.createElement("p");
+price.innerText = "$" + Number(Price).toFixed(2);
+price.classList.add('font');
+price.classList.add('pink');
+price.classList.add('item-price');
+var hideEye = document.createElement("i");
+hideEye.classList.add('fas');
+hideEye.classList.add('fa-eye-slash');
+hideEye.classList.add('menu-item-icon');
+hideEye.classList.add('fa-3x');
+var eye = document.createElement("i");
+eye.classList.add('fas');
+eye.classList.add('fa-eye');
+eye.classList.add('hidden');
+eye.classList.add('menu-item-icon');
+eye.classList.add('fa-3x');
+var trash = document.createElement("i");
+trash.classList.add('fa');
+trash.classList.add('fa-trash');
+trash.classList.add('menu-item-icon');
+trash.classList.add('fa-3x');
+var arrowUp = document.createElement("i");
+arrowUp.classList.add('fas');
+arrowUp.classList.add('fa-arrow-up');
+arrowUp.classList.add('menu-item-icon');
+arrowUp.classList.add('fa-3x');
+var arrowDown = document.createElement("i");
+arrowDown.classList.add('fas');
+arrowDown.classList.add('fa-arrow-down');
+arrowDown.classList.add('menu-item-icon');
+arrowDown.classList.add('fa-3x');
+
+clickSpace2.appendChild(image);
+clickSpace2.appendChild(title);
+clickSpace2.appendChild(description);
+clickSpace2.appendChild(price);
+menuItem.appendChild(clickSpace2);
+menuItem.appendChild(hideEye);
+menuItem.appendChild(eye);
+menuItem.appendChild(trash);
+menuItem.appendChild(arrowUp);
+menuItem.appendChild(arrowDown);
+document.getElementById('menu-items').appendChild(menuItem);
+
+//sets visibility
+if(visible == true){
+  menuItem.classList.remove('transparent');
+  hideEye.classList.remove('hidden');
+  eye.classList.add('hidden');
+}else{
+  menuItem.classList.add('transparent');
+  hideEye.classList.add('hidden');
+  eye.classList.remove('hidden');
+}
+//sets arrows
+if(length == 1){
+  arrowDown.classList.add('hidden');
+  arrowUp.classList.add('hidden');
+}else if(position == 1){
+  arrowUp.classList.add('hidden');
+}else if(length == position){
+  arrowDown.classList.add('hidden');
+  arrowUp.classList.remove('hidden');
+}
+trash.addEventListener('click', function(){//trash function
+  var nameOfItem = title.innerText;
+  if(image.src = ''){
+  db.collection('users/' + email + '/food').where("Name", "==", nameOfItem).get().then((querySnapshot) => {
+    querySnapshot.docs.forEach((doc) => {
+      var currentPosition = doc.data().position;
+      var docID = doc.id;
+      //delete topping choice linked with food item
+      db.collection('users/' + email + '/choices').where("for", "==", docID).get().then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
+          db.collection('users/' + email + '/choices').doc(doc.id).delete();
+        })
+      });
+
+      if(currentPosition == length){
+        db.collection('users/' + email + '/food').doc(doc.id).delete();
+      }else{
+        db.collection('users/' + email + '/food').where("position", ">", currentPosition).get().then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
+          db.collection('users/' + email + '/food').doc(doc.id).update({
+            position: firebase.firestore.FieldValue.increment(-1)
+          })
+        })
+      })
+      db.collection('users/' + email + '/food').doc(doc.id).delete();
+      }
+
+      
+    })
+  })
+}else{//if there is an image (must delete image from storage)
+  firebase.storage().ref('/users/' + email + '/' + nameOfItem).delete();
+  db.collection('users/' + email + '/food').where("Name", "==", nameOfItem).get().then((querySnapshot) => {
+    querySnapshot.docs.forEach((doc) => {
+      var currentPosition = doc.data().position;
+
+      var docID = doc.id;
+      //delete topping choice linked with food item
+      db.collection('users/' + email + '/choices').where("for", "==", docID).get().then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
+          db.collection('users/' + email + '/choices').doc(doc.id).delete();
+        })
+      });
+
+      if(currentPosition == length){
+        db.collection('users/' + email + '/food').doc(doc.id).delete();
+      }else{
+        db.collection('users/' + email + '/food').where("position", ">", currentPosition).get().then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
+          db.collection('users/' + email + '/food').doc(doc.id).update({
+            position: firebase.firestore.FieldValue.increment(-1)
+          })
+        })
+      })
+      db.collection('users/' + email + '/food').doc(doc.id).delete();
+      }
+
+      
+    })
+  })
+}
+
+})
+hideEye.addEventListener('click', function(){// hides visibility
+  var nameOfItem = title.innerText;
+  
+
+  db.collection('users/' + email + '/food').where("Name", "==", nameOfItem).get().then((querySnapshot) => {
+    querySnapshot.docs.forEach((doc) => {
+      
+      db.collection('users/' + email + '/food').doc(doc.id).update({
+            visible: false
+          })
+
+      
+    })
+  })
+})
+
+eye.addEventListener('click', function(){
+  var nameOfItem = title.innerText;
+  db.collection('users/' + email + '/food').where("Name", "==", nameOfItem).get().then((querySnapshot) => {
+    querySnapshot.docs.forEach((doc) => {
+      db.collection('users/' + email + '/food').doc(doc.id).update({
+            visible: true
+          })
+    })
+  })
+})
+
+arrowUp.addEventListener('click', function(){ //arrow up function menu item
+  var nameOfItem = title.innerText;
+  db.collection('users/' + email + '/food').where("Name", "==", nameOfItem).get().then((querySnapshot) => {
+    querySnapshot.docs.forEach((doc) => {
+      var newValue = doc.data().position - 1;
+      var origId = doc.id;
+      db.collection('users/' + email + '/food').where("section", "==", document.getElementById('section-heading').innerText).where("position", "==", newValue).get().then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
+          db.collection('users/' + email + '/food').doc(doc.id).update({
+            position: firebase.firestore.FieldValue.increment(1)
+          }).then(()=>{
+            db.collection('users/' + email + '/food').doc(origId).update({
+              position: firebase.firestore.FieldValue.increment(-1)
+            })
+          })
+        });
+      })
+    })
+
+  })
+})
+
+arrowDown.addEventListener('click', function(){ //arrow down function menu item
+  var nameOfItem = title.innerText;
+  db.collection('users/' + email + '/food').where("Name", "==", nameOfItem).get().then((querySnapshot) => {
+    querySnapshot.docs.forEach((doc) => {
+      var newValue = doc.data().position + 1;
+      var origId = doc.id;
+      db.collection('users/' + email + '/food').where("section", "==", document.getElementById('section-heading').innerText).where("position", "==", newValue).get().then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
+          db.collection('users/' + email + '/food').doc(doc.id).update({
+            position: firebase.firestore.FieldValue.increment(-1)
+          }).then(()=>{
+            db.collection('users/' + email + '/food').doc(origId).update({
+              position: firebase.firestore.FieldValue.increment(1)
+            })
+          })
+        });
+      })
+    })
+
+  })
+})
+
+
+
+
+}
+
+
+//loading page with menu items
+clickSpace.addEventListener('click', function(){
+  var theSection = mainBox.innerText.replace(/\s+/g, '');
+  document.getElementById('edit-menu-div').classList.add('hidden');
+  document.getElementById('edit-item-menu-div').classList.remove('hidden');
+  document.getElementById('section-heading').innerText = theSection;
+  
+  db.collection('users/' + email + '/food').where("section", "==", theSection).orderBy('position').onSnapshot(snapshot => {
+    document.getElementById('menu-items').innerHTML = '';
+    var theLength = snapshot.docs.length;
+    snapshot.docs.forEach((doc) => {
+      loadMenuItems(doc.data().Name, doc.data().description, doc.data().imgURL, doc.data().priceSell, doc.data().visible, theLength, email, doc.data().position);
+    })
+    document.getElementById('the-loading-screen').classList.add('hidden');
+  })
+  
+});
+
+
+
+
+
+};
+
+
+
+//loads all toppings funciton
+var loadToppings = function(toppingName, toppingSP, position, email, visible){
+  var theDiv = document.getElementById('toppings-for-the-menu');
+  var topping = document.createElement("div");
+  topping.id = 'topping-or-side';
+  var theActualPrice = toppingSP.toFixed(2);
+  topping.innerText = toppingName + ' $' + theActualPrice;
+  var deleteTopping = document.createElement('i');
+  deleteTopping.classList.add('fas');
+  deleteTopping.classList.add('fa-trash');
+  deleteTopping.id = 'trash-topping';
+  var hideEye = document.createElement("i");
+  hideEye.classList.add('fas');
+  hideEye.classList.add('fa-eye-slash');
+  hideEye.id = 'hide-eye-topping';
+  var eye = document.createElement("i");
+  eye.classList.add('fas');
+  eye.classList.add('fa-eye');
+  eye.classList.add('hidden');
+  eye.id = 'eye-topping';
+ 
+  topping.appendChild(deleteTopping);
+  topping.appendChild(hideEye);
+  topping.appendChild(eye);
+  theDiv.appendChild(topping);
+
+  if(position == 0){
+    topping.classList.add('hidden');
+  }
+  if(visible){
+    hideEye.classList.remove('hidden');
+    eye.classList.add('hidden');
+    topping.classList.remove('transparent');
+  }else{
+    hideEye.classList.add('hidden');
+    eye.classList.remove('hidden');
+    topping.classList.add('transparent');
+  }
+  //deletes the topping 
+  deleteTopping.addEventListener('click', function(){
+    db.collection('users/' + email + '/toppings').doc(deleteTopping.parentElement.innerText.slice(0,-6)).delete();
+  })
+  //hide eye funciton
+  hideEye.addEventListener('click', function(){
+    db.collection('users/' + email + '/toppings').doc(deleteTopping.parentElement.innerText.slice(0,-6)).update({
+      visible: false
+    })
+  })
+  //eye function
+  eye.addEventListener('click', function(){
+    db.collection('users/' + email + '/toppings').doc(deleteTopping.parentElement.innerText.slice(0,-6)).update({
+      visible: true
+    })
+  })
+}
+
+//load waiters into select tip
+function loadWaitersForTip(waiterName, email){
+  if(waiterName == 'placeholder'){
+  }else{
+    var main = document.createElement("div");
+main.classList.add('waiter-tip');
+main.innerText = waiterName;
+document.getElementById('waiters-for-tip').appendChild(main);
+main.addEventListener('click', function(){
+  db.collection('users/' + email + '/waiterRequest').doc(document.getElementById('id-of-the-tip').innerText).get().then((snapshot)=>{
+    var amountOfTip = snapshot.data().amount;
+    db.collection('users/' + email + '/waiters').doc(waiterName).update({
+      amount: firebase.firestore.FieldValue.increment(amountOfTip)
+    }).then(()=>{
+      db.collection('users/' + email + '/waiterRequest').doc(document.getElementById('id-of-the-tip').innerText).delete();
+    })
+  })
+  document.querySelector('.selected-tip').remove();
+  document.getElementById('decide-the-tip').classList.add('hidden');
+})
+  }
+
+};
+
+
+
+function loadsOrders(tableNumb, orderObject, id, chargeId) { // loads all orders
+  console.log(chargeId);
+  var orderDiv1 = document.createElement('div');
+  orderDiv1.classList.add('order-box');
+  var topBar = document.createElement('div');
+  topBar.classList.add('black-bar');
+  topBar.classList.add('heading-font');
+  topBar.classList.add('pink');
+  topBar.innerText = 'Table ' + tableNumb;
+  var orderBelow = document.createElement('div');
+  orderBelow.classList.add('order');
+  for(var i = 0; i < orderObject.length; i++) {
+    var nameOf = document.createElement('div');
+    nameOf.addEventListener('click', function(e){e.target.classList.toggle('strikethrough')});
+    nameOf.classList.add('item-name');
+    nameOf.innerText = orderObject[i].name;
+    orderBelow.appendChild(nameOf);
+    for(var j = 0; j < orderObject[i].toppings.length; j++) {
+      var topping = document.createElement('div');
+      topping.addEventListener('click', function(e) {e.target.classList.toggle('strikethrough')});
+      topping.classList.add('toppings-sides');
+      topping.id = 'toppings-and-sides';
+      topping.innerText = orderObject[i].toppings[j];
+      orderBelow.appendChild(topping);
+    }
+
+  }
+  var finishBttn = document.createElement('div');
+  finishBttn.innerText = 'Finish';
+  finishBttn.classList.add('finish-button');
+  finishBttn.addEventListener('click', ()=>{
+    db.collection('orders').doc(id).update({
+    type: 'complete'
+  })
+  orderDiv1.remove();
+  })
+ 
+
+  var Refund = document.createElement('div');
+  Refund.innerText = 'Refund';
+  Refund.classList.add('finish-button');
+  Refund.setAttribute('chargeId', chargeId);
+  Refund.addEventListener('click', (target)=>{
+    console.log(target.path[2]);
+    var chargeId = target.path[0].getAttribute('chargeid');
+    if (Refund.innerText === "Refund") {
+      Refund.innerText = 'Confirm?';
+      setTimeout(function(){
+        Refund.innerText = 'Refund';
+      }, 4000)
+    }else{
+      //refund the transaction
+      target.path[2].remove();
+     db.collection('orders').where('chargeId', "==", chargeId).get().then((querySnapshot)=>{
+      querySnapshot.docs.forEach((doc) => {
+        db.collection('orders').doc(doc.id).update({
+          type: 'refund',
+        })
+      })
+     })
+    }
+    
+
+  })
+
+
+  var confirm = document.createElement('div');
+  confirm.innerText = 'Confirm?';
+  confirm.classList.add('finish-button');
+  confirm.classList.add('hidden');
+
+
+  orderBelow.appendChild(finishBttn);
+  orderBelow.appendChild(Refund);
+  orderDiv1.appendChild(topBar);
+  orderDiv1.appendChild(orderBelow);
+  document.getElementById('order-div').appendChild(orderDiv1);
+
+
+};
+
+
+auth.onAuthStateChanged (firebaseUser => {
+        if(firebaseUser){
+
+          db.collection('users').doc(firebaseUser.email).get().then((snapshot)=>{
+            currentClientID = snapshot.data().clientID;
+            resEmail = firebaseUser.email;
+                if(snapshot.data().admin == true){
+                    location.href = "admin.html";
+                }else{
+
+            db.collection("orders").where("for", "==", snapshot.data().uid).where("type", "==", "active").orderBy('time').onSnapshot((snapshot) => {
+              snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                loadsOrders(change.doc.data().table, change.doc.data().order, change.doc.id, change.doc.data().chargeId);
+                }
+
+
+
+        });
+    });
+
+                }
+            })
+
+            
+        //restaurantName
+          db.collection('users').doc(firebaseUser.email).get().then((doc)=>{
+            restaurantName.innerHTML = doc.data().name;
+            document.getElementById('2resname').innerText = doc.data().name;
+          })
+          // users/nickfilms32@gmail.com/sections adding the sections to the edit menu
+
+          //real time listener sections
+          db.collection('users/' + firebaseUser.email + '/sections').orderBy('position').onSnapshot(snapshot => {
+          let theLength = snapshot.docs.length;
+          menuCategories.innerHTML = '';
+            snapshot.docs.forEach((doc) => {
+              addNewCategory(doc.id, doc.data().visible, doc.data().position, theLength, firebaseUser.email);
+            })
+          });
+
+  
+  
+//add a category
+addNewCategoryBttn.addEventListener('click', function() {
+  document.getElementById('alert-box-add-category').classList.remove('hidden');
+  document.getElementById('add-button-category').addEventListener('click', function(){
+    var theName = document.getElementById('new-category-name').value.toString();
+    db.collection('users/' + firebaseUser.email + '/sections').get().then((snapshot) => {
+      db.collection('users/' + firebaseUser.email + '/sections').doc(theName).set({
+      position: snapshot.docs.length,
+      visible: true
+    })
+    })
+    
+    document.getElementById('alert-box-add-category').classList.add('hidden');
+    document.getElementById('new-category-name').value = '';
+  })
+  document.getElementById('cancel-button-add-category').addEventListener('click', function(){
+    document.getElementById('alert-box-add-category').classList.add('hidden');
+    document.getElementById('new-category-name').value = '';
+
+  })
+
+})
+
+//loads all toppings 
+db.collection('users/' + firebaseUser.email + '/toppings').onSnapshot(snapshot => {
+  document.getElementById('toppings-for-the-menu').innerHTML = '';
+  var toppingLength = snapshot.docs.length;
+  snapshot.docs.forEach((doc) => {
+    if(doc.id != 'placeholder'){
+    loadToppings(doc.id, doc.data().priceSell, doc.data().position, firebaseUser.email, doc.data().visible);
+    }
+    })
+
+})
+
+//add new topping 
+document.getElementById('add-button-topping').addEventListener('click', function(){
+  var toppingName = document.getElementById('new-topping-name').value;
+  var salePrice = document.getElementById('new-topping-price-sell').value;
+  var makePrice = document.getElementById('new-topping-price-make').value;
+  var nxtSalePrice = parseInt(salePrice, 10);
+  var nxtMakePrice = parseInt(makePrice, 10);
+  //document.getElementById('error-message-toppings').classList.add('hidden');
+if(toppingName.length > 0 && nxtSalePrice >= nxtMakePrice){
+  
+    db.collection('users/' + firebaseUser.email + '/toppings').doc(toppingName).set({
+    priceSell: nxtSalePrice,
+    priceMake: nxtMakePrice,
+    visible: true
+  })
+  
+  document.getElementById('new-topping-name').value = '';
+  document.getElementById('new-topping-price-sell').value = '';
+  document.getElementById('new-topping-price-make').value = '';
+  document.getElementById('alert-box-add-topping').classList.add('hidden');
+  document.getElementById('error-message-toppings').classList.add('hidden');
+
+}else{
+  document.getElementById('error-message-toppings').classList.remove('hidden');
+
+
+}
+})
+
+//loads toppings to put onto new menu item
+db.collection('users/' + firebaseUser.email + '/toppings').onSnapshot(snapshot => {
+  document.getElementById('list-of-topping-to-add').innerHTML = '';
+  var toppingLength = snapshot.docs.length;
+  snapshot.docs.forEach((doc) => {
+    loadToppingForChoice(doc.id, doc.data().position);
+    
+    })
+
+})
+//adds new item to menu
+document.getElementById('add-new-menu-item-button-database').addEventListener('click', function(){
+var ImgName = document.getElementById('new-item-menu').value;
+var description = document.getElementById('new-item-decription').value;
+var costMake = document.getElementById('new-item-cost-to-make').value;
+var sellPrice = document.getElementById('new-item-selling-price').value;
+var moneyM = Number(costMake);
+var moneyO = Number(sellPrice);
+
+if(ImgName.length >= 1 && moneyM <= moneyO){
+if(document.getElementById('image-text-add-item').classList.contains('hidden')){//if a file is uploaded
+document.getElementById('food-item-add').classList.add('hidden');
+document.getElementById('edit-item-menu-div').classList.remove('hidden');
+firebase.storage().ref('users/' + firebaseUser.email + '/' + ImgName).put(fileNew).then((snapshot)=>{
+  snapshot.ref.getDownloadURL().then((downloadURL)=>{
+    db.collection('users/' + firebaseUser.email + '/food').where("section", "==", document.getElementById('section-heading').innerText).get().then((querySnapshot)=>{
+      var lengthOfDocs = querySnapshot.docs.length;
+      db.collection('users/' + firebaseUser.email + '/food').add({
+        Name: ImgName,
+        description: description,
+        imgURL: downloadURL,
+        position: lengthOfDocs + 1,
+        priceMake: moneyM,
+        priceSell: moneyO,
+        section: document.getElementById('section-heading').innerText,
+        visible: true
+      }).then(function(docRef){
+        fileNew = {};
+        document.getElementById('food-item-add').classList.add('hidden');
+        document.getElementById('edit-item-menu-div').classList.remove('hidden');
+        document.getElementById('file-add-new-menu-item').value = "";
+        document.getElementById('image-preveiwer-add-item-image').style.display = "none";
+        document.getElementById('delete-uploaded-image-new').classList.add('hidden');
+        //document.getElementById('image-text-add-item').classList.remove('hidden');
+        document.getElementById('new-item-menu').value = "";
+        document.getElementById('new-item-decription').value = "";
+        document.getElementById('new-item-cost-to-make').value = "";
+        document.getElementById('new-item-selling-price').value = "";
+        //document.getElementById('toping-for-item-list-new').innerHTML = "";
+
+        if(document.getElementById('toping-for-item-list-new').childNodes.length != 0){//adds toppings to menu item 
+          for(var i = 0; i< document.getElementById('toping-for-item-list-new').childNodes.length; i++){
+              var choices = [];
+              var name = document.getElementById('toping-for-item-list-new').childNodes[i].childNodes[1].childNodes[0].value;
+              var typeOfChoice = document.getElementById('toping-for-item-list-new').childNodes[i].childNodes[2].value;
+              for(var j = 0; j < document.getElementById('toping-for-item-list-new').childNodes[i].childNodes[3].childNodes.length; j++){
+                choices.push(document.getElementById('toping-for-item-list-new').childNodes[i].childNodes[3].childNodes[j].innerText);
+              }
+              
+              db.collection('users/' + firebaseUser.email + '/choices').add({
+                name: name,
+                typeOfChoice: typeOfChoice,
+                choices: choices,
+                for: docRef.id,
+                section: document.getElementById('section-heading').innerText
+              }).then(()=>{document.getElementById('toping-for-item-list-new').innerHTML = "";})
+              
+  
+          }}
+
+      })
+    })
+
+
+
+
+
+
+  });
+
+
+
+
+
+})
+ 
+
+
+
+}else{//if a file is not uploaded
+document.getElementById('food-item-add').classList.add('hidden');
+document.getElementById('edit-item-menu-div').classList.remove('hidden');
+db.collection('users/' + firebaseUser.email + '/food').where("section", "==", document.getElementById('section-heading').innerText).get().then((querySnapshot)=>{
+      var lengthOfDocs = querySnapshot.docs.length;
+      db.collection('users/' + firebaseUser.email + '/food').add({
+        Name: ImgName,
+        description: description,
+        imgURL: '',
+        position: lengthOfDocs + 1,
+        priceMake: moneyM,
+        priceSell: moneyO,
+        section: document.getElementById('section-heading').innerText,
+        visible: true
+      }).then(function(docRef){
+        fileNew = {};
+        document.getElementById('food-item-add').classList.add('hidden');
+        document.getElementById('edit-item-menu-div').classList.remove('hidden');
+        document.getElementById('file-add-new-menu-item').value = "";
+        document.getElementById('image-preveiwer-add-item-image').style.display = "none";
+        document.getElementById('delete-uploaded-image-new').classList.add('hidden');
+        document.getElementById('image-text-add-item').classList.remove('hidden');
+        document.getElementById('new-item-menu').value = "";
+        document.getElementById('new-item-decription').value = "";
+        document.getElementById('new-item-cost-to-make').value = "";
+        document.getElementById('new-item-selling-price').value = "";
+
+        if(document.getElementById('toping-for-item-list-new').childNodes.length != 0){//adds toppings to menu item 
+        for(var i = 0; i <= document.getElementById('toping-for-item-list-new').childNodes.length; i++){
+            var choices = [];
+            var name = document.getElementById('toping-for-item-list-new').childNodes[i].childNodes[1].childNodes[0].value;
+            var typeOfChoice = document.getElementById('toping-for-item-list-new').childNodes[i].childNodes[2].value;
+            for(var j = 0; j < document.getElementById('toping-for-item-list-new').childNodes[i].childNodes[3].childNodes.length; j++){
+              choices.push(document.getElementById('toping-for-item-list-new').childNodes[i].childNodes[3].childNodes[j].innerText);
+            }
+            db.collection('users/' + firebaseUser.email + '/choices').add({
+              name: name,
+              typeOfChoice: typeOfChoice,
+              choices: choices,
+              for: docRef.id,
+              section: document.getElementById('section-heading').innerText
+            }).then(()=>{document.getElementById('toping-for-item-list-new').innerHTML = "";})
+        }}
+      })
+    })
+
+}
+
+
+
+}else{
+  alert('Please enter all fields and make sure that the cost to make is less than or equal to the selling price.');
+}
+});
+
+
+
+db.collection('users').doc(firebaseUser.email).onSnapshot((snapshot)=>{
+  var open = snapshot.data().open;
+  if(open){
+    document.getElementById('close-button').classList.add('hidden');
+    document.getElementById('open-button').classList.remove('hidden');
+  }else{
+    document.getElementById('close-button').classList.remove('hidden');
+    document.getElementById('open-button').classList.add('hidden');
+  }
+})
+//open restaurant
+document.getElementById('close-button').addEventListener('click', function(){
+  db.collection('users').doc(firebaseUser.email).update({
+    open: true
+  })
+  db.collection('users/' + firebaseUser.email + '/finance').add({
+    active: true
+  })
+})
+document.getElementById('open-button').addEventListener('click', function(){
+  db.collection('users').doc(firebaseUser.email).update({
+    open: false
+  })
+  db.collection('users/' + firebaseUser.email + '/finance').where("active", "==", true).get().then((querySnapshot)=>{
+    querySnapshot.docs.forEach((doc)=>{
+      db.collection('users/' + firebaseUser.email + '/finance').doc(doc.id).update({
+        active: false,
+        time: new Date()//revenue, profit and costs will already exist
+      })
+    })
+  })
+})
+//search for tables
+document.getElementById('search-button-tables').addEventListener('click', function(){
+  db.collection('users/' + firebaseUser.email + '/tables').where("tableNumber", "==", parseInt(document.getElementById('table-number-search').value)).get().then((querySnapshot)=>{
+
+    if(querySnapshot.docs.length == 0){
+      document.getElementById('table-warning-no-exist').classList.remove('hidden');
+    }else{
+      document.getElementById('table-warning-no-exist').classList.add('hidden');
+      document.getElementById('search-for-a-table').classList.add('hidden');
+      document.getElementById('table-found').classList.remove('hidden');
+      querySnapshot.docs.forEach((doc)=>{
+        document.getElementById('number-of-table-title').innerText = doc.data().tableNumber;
+        document.getElementById('type-of-table-span').innerText = doc.data().type;
+        db.collection('users/' + firebaseUser.email + '/tables').doc(doc.id).onSnapshot((snapshot)=>{
+          if(snapshot.data().active){
+            document.getElementById('unblock-table-button').classList.add('hidden');
+            document.getElementById('block-table-button').classList.remove('hidden');
+          }else{
+            document.getElementById('unblock-table-button').classList.remove('hidden');
+            document.getElementById('block-table-button').classList.add('hidden');
+          }
+        
+        })
+  })
+    }
+   
+  })
+})
+//button to block or unblock table
+document.getElementById('unblock-table-button').addEventListener('click', function(){
+  db.collection('users/' + firebaseUser.email + '/tables').where("number", "==", parseInt(document.getElementById('number-of-table-title').innerText)).get().then((querySnapshot)=>{
+    querySnapshot.docs.forEach((doc)=>{
+      db.collection('users/' + firebaseUser.email + '/tables').doc(doc.id).update({
+        active: true
+      })
+    })
+  })
+})
+document.getElementById('block-table-button').addEventListener('click', function(){
+  db.collection('users/' + firebaseUser.email + '/tables').where("number", "==", parseInt(document.getElementById('number-of-table-title').innerText)).get().then((querySnapshot)=>{
+    querySnapshot.docs.forEach((doc)=>{
+      db.collection('users/' + firebaseUser.email + '/tables').doc(doc.id).update({
+        active: false
+      })
+    })
+  })
+})
+//lists waiters
+document.getElementById('manage-waiters-button').addEventListener('click', function(){
+  document.getElementById('settings-tab-home').classList.add('hidden');
+  document.getElementById('list-of-waiters-right-box').classList.remove('hidden');
+})
+db.collection('users/' + firebaseUser.email + '/waiters').onSnapshot((snapshot)=>{
+  document.getElementById('waiters-list').innerHTML = '';
+  document.getElementById('waiters-for-tip').innerHTML = '';
+    snapshot.docs.forEach((doc)=>{
+      loadWaitersForTip(doc.id, firebaseUser.email);
+      createWaiter(firebaseUser.email, doc.id, doc.data().amount);
+    })
+  })
+//adds a waiter
+document.getElementById('yes-button-add-waiter').addEventListener('click', function(){
+  document.getElementById('alert-add-waiter').classList.add('hidden');
+  document.getElementById('list-of-waiters-right-box').classList.remove('hidden');
+  var nameDoc = document.getElementById('first-name-waiter').value + ' ' + document.getElementById('last-name-waiter').value;
+  db.collection('users/' + firebaseUser.email + '/waiters').doc(nameDoc).set({
+    amount: 0
+  }).then(()=>{
+    document.getElementById('first-name-waiter').value = '';
+    document.getElementById('last-name-waiter').value = '';
+  })
+})
+
+
+//table requests setup
+function showTableRequests(amount, tableNumber, time, tip, id){
+var main = document.createElement("div");
+
+if(tip == false){
+  main.id = "table-request";
+  main.innerText = "Table " + tableNumber;
+  document.getElementById('tips-and-requests').appendChild(main);
+  main.addEventListener('click', function(){
+    db.collection('users/' + firebaseUser.email + '/waiterRequest').where("tableNumber", "==", tableNumber).get().then((snapshot)=>{
+      snapshot.docs.forEach((doc)=>{
+        db.collection('users/' + firebaseUser.email + '/waiterRequest').doc(doc.id).delete();
+      })
+    });
+    main.remove();
+  })
+}else{
+  main.id = "tip-request";
+  main.innerText = "Table " + tableNumber + " $" + amount;
+  document.getElementById('tips-and-requests').appendChild(main);
+  main.addEventListener('click', function(){
+    main.classList.add('selected-tip');
+    document.getElementById('id-of-the-tip').innerText = id;
+    document.getElementById('the-table-tip').innerText = "Pick waiter that served Table " + tableNumber;
+    document.getElementById('decide-the-tip').classList.remove('hidden');
+  })
+}
+
+}
+
+//lists tables
+db.collection('users/' + firebaseUser.email + '/waiterRequest').orderBy("time", "asc").onSnapshot((snapshot) => {
+  snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+              document.getElementById('tips-and-requests').innerHTML = '';
+                snapshot.docs.forEach((doc)=> {
+                  showTableRequests(doc.data().amount, doc.data().tableNumber, doc.data().time, doc.data().tip, doc.id);
+                })
+            }
+            
+
+
+  })
+})
+        
+          }else{
+          location.href = "login.html";
+        
+}
+});  
+
+
+
+    
+          
+
+
+
+</script>
+
+</body>
+</html>

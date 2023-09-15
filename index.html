@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiftie</title>
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+    <script src="https://kit.fontawesome.com/46a9aec258.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;900&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            margin: 0;
+            background: linear-gradient(57deg, #99eeff 0%, hsl(326, 100%, 50%) 100%);
+        }
+
+        .little-font{
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 400;
+        }
+        .medium-font{
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 600;
+        }
+        .bold-font{
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 900;
+        }
+        .hidden{
+            display: none;
+        }
+        .visibility{
+            opacity: 0;
+            pointer-events: none;
+        }
+        .white{
+            color: white;
+        }
+        #main{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            background-color: white;
+        }
+        #first-half{
+            background: linear-gradient(57deg, #99eeff 0%, hsl(326, 100%, 50%) 100%);
+            width: 100%;
+            top: 0;
+        }
+        #nav-bar{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        #right-side-nav{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 65%;
+        }
+        #swiftie-logo{
+            font-size: 250%;
+            margin-left: 3%;
+        }
+        .nav-buttons{
+            font-size: 150%;
+            text-align: center;
+            white-space: nowrap;
+            text-decoration: underline solid transparent;
+            transition: 1s;
+        }
+
+        .nav-buttons:hover{
+            cursor: pointer;
+            text-decoration: underline solid Currentcolor;
+        }
+        #login-bttn{
+            background-color: black;
+            color: #FF007B;
+            padding-top: 2%;
+            padding-bottom: 2%;
+            padding-right: 6%;
+            padding-left: 6%;
+            border-radius: 25px;
+            font-size: 150%;
+        }
+        #login-bttn:hover{
+            cursor: pointer;
+        }
+        #first-half-second-half{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            margin-top: 5%;
+            padding-bottom: 5%;
+        }
+        #first-screenshot{
+            width: 25%;
+            border-radius: 25px;
+        }
+        #text-left{
+            width: 40%;
+        }
+        #order-and-pay{
+            font-size: 400%;
+            margin-bottom: 0%;
+            margin-top: 10%;
+            opacity: 0;
+            transition: 1.4s;
+        }
+        #order-and-pay.fade-in-class{
+            margin-top: 0%;
+            opacity: 1;
+        }
+        #first-description{
+            font-size: 130%;
+            margin-top: 10%;
+            opacity: 0;
+            transition: 2s;
+        }
+        #first-description.fade-in-class{
+            margin-top: 0%;
+            opacity: 1;
+        }
+
+        #second-half{
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 10%;
+            padding-bottom: 10%;
+        }
+        #left-images{
+            width: 40%;
+            position: relative;
+            opacity: 0;
+            margin-bottom: 10%;
+            transition: 1.4s;
+        }
+        #left-images.fade-in-class{
+            opacity: 1;
+            margin-bottom: 0%;
+        }
+        #second-img{
+            position: absolute;
+            right: 0;
+            top: 40%;
+            margin-left: auto;
+            width: 100%;
+            border-radius: 25px;
+            box-shadow: 4px 4px 2px 0px rgba(0, 0, 0, 0.25);
+        }
+        #colored-thing{
+            position: absolute;
+            top: 30%;
+            left: 0;
+            width: 80%;
+            background: linear-gradient(57deg, #99eeff 0%, hsl(326, 100%, 50%) 100%);
+            border-radius: 25px;
+            height: 30%;
+        }
+        #right-text{
+            width: 30%;
+        }
+        #right-title{
+            font-size: 300%;
+            opacity: 0;
+            margin-top: 10%;
+            transition: 1s;
+        }
+        #right-title.fade-in-class{
+            opacity: 1;
+            margin-top: 0%;
+        }
+        #right-title-desc{
+            font-size: 130%;
+            opacity: 0;
+            margin-top: 10%;
+            transition: 1.4s;
+        }
+        #right-title-desc.fade-in-class{
+            opacity: 1;
+            margin-top: 0%;
+        }
+        #right-title-2{
+            font-size: 130%;
+            margin-top: 20%;
+            opacity: 0;
+            transition: 2s;
+        }
+        #right-title-2.fade-in-class{
+            margin-top: 10%;
+            opacity: 1;
+        }
+        #get-started-button{
+            display: flex;
+            background-color: black;
+            border-radius: 25px;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 50%;
+            opacity: 0;
+            margin-top: 10%;
+            transition: 2.4s;
+        }
+        #get-started-button:hover{
+            cursor: pointer;
+        }
+        #get-started-button.fade-in-class{
+            opacity: 1;
+            margin-top: 0%;
+        }
+        #menu-bars{
+            visibility: hidden;
+            display: none;
+        }
+        #mobile-nav{
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(0, 0, 0, 0.9);
+            z-index: 3;
+        }
+        .nav-menu-item{
+            color: white;
+            font-size: 140%;
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 400;
+            opacity: 0;
+            margin-top: -10%;
+            transition: 1.4s;
+        }
+        .nav-menu-item.fade-in-class{
+            opacity: 1;
+            margin-top: 0%;
+        }
+        /* for I pad vertical*/
+        @media only screen and (max-width: 768pt) {
+            #order-and-pay{
+                font-size: 300%;
+            }
+            #right-title{
+                font-size: 250%;
+            }
+            .nav-buttons{
+                font-size: 100%;
+            }
+
+        }
+        @media only screen and (max-width: 625pt) {
+            #nav-bar{
+                display: block;
+            }
+            #right-side-nav{
+                width: 0%;
+            }
+            #swiftie-logo{
+                margin-top: -15%;
+                margin-left: 0;
+                padding-top: 6%;
+                text-align: center;
+            }
+            #text-left{
+                width: 80%;
+            }
+            #order-and-pay{
+                padding-top: 30%;
+                text-align: center;
+            }
+            #first-description{
+                padding-top: 30%;
+                text-align: center;
+            }
+            #first-screenshot{
+                margin-top: 20%;
+                width: 60%;
+
+            }
+
+            #first-half{
+                padding-bottom: 25%;
+            }
+            #right-title{
+                text-align: center;
+            }
+            .nav-buttons{
+                display: none;
+            }
+            #first-half-second-half{
+                flex-direction: column;
+            }
+            #second-half{
+                display: relative;
+            }
+            #left-images{
+                display: none;
+            }
+            #right-text{
+                width: 90%;
+                justify-content: center;
+                padding-bottom: 20%;
+            }
+            #right-title{
+                padding-top: 15%;
+            }
+            #right-title-desc{
+                text-align: center;
+                padding-top: 20%;
+            }
+            #right-title-2{
+                text-align: center;
+                padding-top: 20%;
+                padding-bottom: 20%;
+            }
+            #get-started-button{
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
+            #menu-bars{
+                visibility: visible;
+            display: block;
+            opacity: 1;
+            margin-left: 5%;
+            padding-top: 10%;
+        }
+        #login-bttn{
+            display: none;
+        }
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <div id="mobile-nav" class="visibility">
+        <p class="nav-menu-item" id="the-ex">X</p>
+        <p class="nav-menu-item" id="about-us2">About Us</p>
+        <p class="nav-menu-item" id="how-it-works">How It Works</p>
+        <p class="nav-menu-item" id="contact-us2">Contact Us</p>
+    </div>
+
+<div id="main">
+
+    <div id="first-half">
+        <div id="nav-bar">
+            <i class="fas fa-bars fa-2x" id="menu-bars"></i>
+            <p id='swiftie-logo' class="little-font">Swiftie</p>
+            <div id="right-side-nav">
+                <p class="little-font nav-buttons" id="about-us">About Us</p>
+                <p class="little-font nav-buttons" id='how-it-works-2'>How It Works</p>
+                <p class="little-font nav-buttons" id="contact-us">Contact Us</p>
+                <div id="login-bttn" class="little-font">Login</div>
+            </div>
+        </div>
+        <div id='first-half-second-half'>
+            <div id="text-left">
+                <p class="bold-font" id="order-and-pay">Order and pay from the table.</p>
+                <p class="little-font" id='first-description'>We give restaurants faster table turnover rates than ever before 
+                    by allowing customers to order and pay for their food through a QR code at their table.</p>
+            </div>
+            <img src="./img/main-menu.png"  id="first-screenshot" alt="image">
+        </div>
+    </div>
+    <div id="second-half">
+        <div id="left-images">
+            <div id="colored-thing"></div>
+            <img src="/img/order example.png" id='second-img' alt="order-example">
+        </div>
+        <div id="right-text">
+            <p id='right-title' class='medium-font'>Every table has a unique QR code.</p>
+            <p id='right-title-desc' class='little-font'>This way the restaurant will know which table the order came from.</p>
+            <p id='right-title-2' class='little-font'>Add Swiftie to your restaurant today!</p>
+            <div id='get-started-button'>
+                <p class='little-font white'>Get Started</p>
+                <i class="fas fa-arrow-right white"></i>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+function getEl(id){
+   return document.getElementById(id);
+}
+
+var fadeInArray = [getEl('order-and-pay'), getEl('first-description'), getEl('right-title'), getEl('right-title-desc'), getEl('right-title-2'), getEl('get-started-button'), getEl('left-images')];
+var observer = new IntersectionObserver(
+    entries => {
+        entries.forEach(entry => {
+            entry.target.classList.toggle('fade-in-class', entry.isIntersecting);
+        })
+    },
+    {
+        threshold: 1,
+    }
+)
+
+fadeInArray.forEach(fadeIn => {
+    observer.observe(fadeIn);
+})
+document.querySelectorAll('.nav-menu-item').forEach(entry =>{
+    observer.observe(entry);
+})
+document.getElementById('menu-bars').addEventListener('click', ()=>{
+    console.log('clicked');
+    document.getElementById('mobile-nav').classList.remove('visibility');
+})
+document.getElementById('the-ex').addEventListener('click', ()=>{
+    document.getElementById('mobile-nav').classList.add('visibility');
+})
+document.getElementById('how-it-works').addEventListener('click', ()=>{
+ location.href = 'howitworks.html';
+})
+document.getElementById('how-it-works-2').addEventListener('click', ()=>{
+ location.href = 'howitworks.html';
+})
+document.getElementById('login-bttn').addEventListener('click', ()=>{
+ location.href = 'login.html';
+})
+document.getElementById('contact-us').addEventListener('click', ()=>{
+ location.href = 'contact-us.html';
+})
+document.getElementById('contact-us2').addEventListener('click', ()=>{
+ location.href = 'contact-us.html';
+})
+
+document.getElementById('get-started-button').addEventListener('click', ()=>{
+ location.href = 'get-started.html';
+})
+document.getElementById('about-us').addEventListener('click', ()=>{
+ location.href = 'about-us.html';
+})
+document.getElementById('about-us2').addEventListener('click', ()=>{
+ location.href = 'about-us.html';
+})
+</script>
+
+
+    
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+    <script src="https://kit.fontawesome.com/46a9aec258.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;900&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            margin: 0;
+            background-color: white;
+            ;
+        }
+
+        .little-font{
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 400;
+        }
+        .medium-font{
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 600;
+        }
+        .bold-font{
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 900;
+        }
+        .hidden{
+            display: none;
+        }
+        .visibility{
+            opacity: 0;
+            pointer-events: none;
+        }
+        .white{
+            color: white;
+        }
+        #main{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            background-color: white;
+        }
+        #how-it-works{
+            color: #F43BA0;
+            font-size: 250%;
+            margin-left: 5%;
+        }
+        #nav-div{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        #other-nav{
+            display: flex;
+            align-items: center;
+            margin-right: 5%;
+            width: 40%;
+            justify-content: space-between;
+            font-size: 150%;
+        }
+        #login-bttn{
+            background-color: black;
+            color: #FF007B;
+            padding-top: 3%;
+            padding-bottom: 3%;
+            padding-right: 8%;
+            padding-left: 8%;
+            border-radius: 25px;
+        }
+        #the-order-pros-div{
+            padding-top: 10%;
+            padding-bottom: 5%;
+        }
+        #swiftie-title{
+            text-align: center;
+            font-size: 400%;
+            margin-top: 20%;
+            opacity: 0;
+            background: linear-gradient(57deg, #99eeff 0%, hsl(326, 100%, 50%) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: 1.5s;
+        }
+        #swiftie-title.fade-in-class{
+            margin-top: 10%;
+            opacity: 1;
+        }
+
+
+        .new-pink{
+            color: #F53A9F
+        }
+        #menu-bars{
+            display: none;
+        }
+        #mobile-menu{
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            background-color: rgb(0, 0, 0, 0.9);
+        }
+        .nav-menu-item{
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 400;
+            color: white;
+            font-size: 130%;
+            text-align: center;
+        }
+        #based-in{
+            font-size: 350%;
+            margin-top: 10%;
+            text-align: center;
+        }
+        #chicago-div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #chicago{
+            font-size: 400%;
+            text-align: center;
+            margin-left: 2%;
+        }
+        #feel-free{
+            text-align: center;
+            font-size: 200%;
+        }
+        .first-div{
+            display: flex;
+            font-size: 300%;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-bttn{
+            cursor: pointer;
+            text-decoration: none;
+            transition: 1s;
+
+        }
+        .nav-bttn:hover{
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        #body1{
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            font-size: 150%;
+            margin-top: 10%;
+            line-height: 200%;
+            transition: 1.6s;
+        }
+        #body1.fade-in-class{
+            transform: scale(1.1);
+        }
+        #body2{
+            text-align: center;
+            margin-top: 9%;
+            font-size: 150%;
+            line-height: 300%;
+        }
+        #contact-us-today{
+            text-decoration: underline;
+        }
+        #contact-us-today:hover{
+            cursor: pointer;
+        }
+
+        #click-here{
+            text-decoration: underline;
+        }
+        #click-here:hover{
+            cursor: pointer;
+        }
+        @media only screen and (max-width: 625pt) {
+            #how-it-works{
+                margin-top: -9%;
+            }
+            #nav-div{
+                justify-content: center;
+            }
+            #order-process{
+                text-align: center;
+                margin-left: 0%;
+            }
+            #other-nav{
+                display: none;
+            }
+            #scan-order-pay-div{
+                flex-direction: column;
+                opacity: 1;
+                align-items: center;
+            }
+            .scan-div{
+                width: 90%;
+            }
+            #chicago-div{
+                font-size: 90%;
+            }
+            #feel-free{
+                width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .first-div{
+                font-size: 200%;
+            }
+            #based-in{
+                font-size: 200%;
+            }
+
+            #menu-bars{
+            display: block;
+            margin-top: 10%;
+            margin-left: 3%;
+        }
+        #body1{
+            width: 80%;
+            margin-top: 20%;
+        }
+        #body2{
+            margin-top: 30%;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <div id="mobile-menu" class="visibility">
+        <p class="nav-menu-item" id="the-ex">X</p>
+        <p class="nav-menu-item" id='contact-us2'>Contact Us</p>
+        <p class="nav-menu-item" id="how-it-works3">How It Works</p>
+        <p class="nav-menu-item" id='home-bttn'>Home</p>
+    </div>
+
+
+    <div id="main">
+        <i class="fas fa-bars fa-2x new-pink" id="menu-bars"></i>
+        <div id="nav-div">
+            <p id="how-it-works" class="little-font">About Us</p>
+            <div id="other-nav">
+                <p class="little-font nav-bttn" id='contact-us'>Contact Us</p>
+                <p class="little-font nav-bttn" id="how-it-works2">How It Works</p>
+                <p class="little-font nav-bttn" id="login-bttn">Login</p>
+            </div>
+        </div>
+        
+       <p class='little-font' id="swiftie-title">Swiftie</p>
+       <p id="body1" class="little-font">We are a Chicago-based tech company looking to partner with restaurants, hotels, and arenas. Our technology 
+           boosts business processes and increases table turnover. Our business plan is very friendly towards our partners because 
+           we charge the customer, not the restaurant for our services.</p>
+
+           <p id="body2" class="little-font"> Want to know more? <br> <span class='new-pink' id="contact-us-today">Contact us today!</span> <br> Ready to implement Swiftie? <span class='new-pink' id="click-here">Click here.</span></p>
+
+    </div>
+
+  
+
+<script>
+
+function getEl(id){
+   return document.getElementById(id);
+}
+
+
+
+var fadeInArray = [getEl('swiftie-title'), getEl('body1')];
+
+
+var observer = new IntersectionObserver(
+    entries => {
+        entries.forEach(entry => {
+            entry.target.classList.toggle('fade-in-class', entry.isIntersecting);
+        })
+    },
+    {
+        threshold: 0.5,
+    }
+)
+
+fadeInArray.forEach(fadeIn => {
+    observer.observe(fadeIn);
+})
+document.querySelectorAll('.right-item').forEach(entry =>{
+    observer.observe(entry);
+})
+
+document.querySelectorAll('.left-item').forEach(entry =>{
+    observer.observe(entry);
+})
+
+document.getElementById('menu-bars').addEventListener('click', ()=>{
+    document.getElementById('mobile-menu').classList.remove('visibility');
+})
+document.getElementById('the-ex').addEventListener('click', ()=>{
+    document.getElementById('mobile-menu').classList.add('visibility');
+})
+document.getElementById('home-bttn').addEventListener('click', ()=>{
+    location.href = 'index.html';
+})
+document.getElementById('how-it-works2').addEventListener('click', ()=>{
+    location.href = 'howitworks.html';
+})
+document.getElementById('how-it-works3').addEventListener('click', ()=>{
+    location.href = 'howitworks.html';
+})
+document.getElementById('how-it-works').addEventListener('click', ()=>{
+    location.href = 'index.html';
+})
+document.getElementById('contact-us').addEventListener('click', ()=>{
+    location.href = 'contact-us.html';
+})
+document.getElementById('contact-us2').addEventListener('click', ()=>{
+    location.href = 'contact-us.html';
+})
+document.getElementById('contact-us-today').addEventListener('click', ()=>{
+    location.href = 'contact-us.html';
+})
+document.getElementById('click-here').addEventListener('click', ()=>{
+    location.href = 'get-started.html';
+})
+
+
+</script>
+
+
+    
+</body>
+</html>

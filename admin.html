@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiftie Home</title>
+    
+<!--emails-->
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-storage.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-analytics.js"></script>
+
+
+<style>
+.hidden {
+    display: none;
+}
+#main-menu{
+    flex-direction: column;
+    
+}
+.nodots{
+    list-style-type: none;
+}
+.margin{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.red{
+    color: red;
+}
+.green{
+    color: rgb(140, 233, 0);
+}
+#withdraw-item{
+    border-width: 2px;
+    border-style: solid;
+}
+.margin-left{
+    margin-left: 2%;
+}
+#paid-bttn-withdraw{
+    margin-bottom: 1%;
+}
+.borders{
+    border-width: 2px;
+    border-style: solid;
+}
+
+</style>
+</head>
+<body>
+
+<div id="main-menu">
+    <ul class="nodots">
+        <li class="margin"><button id="check-withdraws-bttn">Make Refunds</button></li>
+        <li class="margin"><button id="applications-button">Applicaitons</button></li>
+        <li class="margin"><button id="search-restaurants-bttn">Search Restaurants</button></li>
+        <li class="margin"><button id="manage-users-button">Manage Users</button></li>
+        <li class="margin" id="logout-button"><button>Logout</button></li>
+    </ul>
+
+</div>
+
+<div id="check-withdraws" class="hidden">
+    <ul class="nodots">
+        <button id="back-buttn-main-menu" class="margin">Back</button><button id="refresh-withdraws">Refresh</button>
+    </ul>
+    <div id="withdraw-list">
+
+    </div>
+</div>
+
+<div id="check-applications" class="hidden">
+    <ul class="nodots">
+        <button id="back-buttn-from-aaplications" class="margin">Back</button> 
+    </ul>
+    <div id="applicaiton-list">
+    </div>
+</div>
+
+<div id="make-account-from-application" class="hidden">
+    <button id="back-buttn-to-applications" class="margin margin-left">Back</button>
+    <ul class="nodots">
+        <li id="theID" class="hidden"></li>
+       <li class="margin">Name: <span id="restauraunt-name-title"></span>  <button id="arrow-for-res-name">--></button><input id="crate-res-name" class="margin-left" type="text" placeholder="Name"></li> 
+       <li class="margin">Email: <span id="email-name-title"></span>  <button id="arrow-for-email-name">--></button><input id="crate-email" class="margin-left" type="text" placeholder="Email"></li> 
+       <li class="margin">Admin<input id="admin-true-or-false" type="checkbox" value="1"/></li>
+       <li class="margin">Street Address: <span id="street-address-title"></span>  <input id="create-street-address" class="margin-left" type="text" placeholder="Street Address"></li>
+       <li class="margin">City <input id="create-city" class="margin-left" type="text" placeholder="City"></li> 
+       <li class="margin">State 
+        <select id="create-state">
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option value="CA">California</option>
+        <option value="CO">Colorado</option>
+        <option value="CT">Connecticut</option>
+        <option value="DE">Delaware</option>
+        <option value="DC">District Of Columbia</option>
+        <option value="FL">Florida</option>
+        <option value="GA">Georgia</option>
+        <option value="HI">Hawaii</option>
+        <option value="ID">Idaho</option>
+        <option value="IL">Illinois</option>
+        <option value="IN">Indiana</option>
+        <option value="IA">Iowa</option>
+        <option value="KS">Kansas</option>
+        <option value="KY">Kentucky</option>
+        <option value="LA">Louisiana</option>
+        <option value="ME">Maine</option>
+        <option value="MD">Maryland</option>
+        <option value="MA">Massachusetts</option>
+        <option value="MI">Michigan</option>
+        <option value="MN">Minnesota</option>
+        <option value="MS">Mississippi</option>
+        <option value="MO">Missouri</option>
+        <option value="MT">Montana</option>
+        <option value="NE">Nebraska</option>
+        <option value="NV">Nevada</option>
+        <option value="NH">New Hampshire</option>
+        <option value="NJ">New Jersey</option>
+        <option value="NM">New Mexico</option>
+        <option value="NY">New York</option>
+        <option value="NC">North Carolina</option>
+        <option value="ND">North Dakota</option>
+        <option value="OH">Ohio</option>
+        <option value="OK">Oklahoma</option>
+        <option value="OR">Oregon</option>
+        <option value="PA">Pennsylvania</option>
+        <option value="RI">Rhode Island</option>
+        <option value="SC">South Carolina</option>
+        <option value="SD">South Dakota</option>
+        <option value="TN">Tennessee</option>
+        <option value="TX">Texas</option>
+        <option value="UT">Utah</option>
+        <option value="VT">Vermont</option>
+        <option value="VA">Virginia</option>
+        <option value="WA">Washington</option>
+        <option value="WV">West Virginia</option>
+        <option value="WI">Wisconsin</option>
+        <option value="WY">Wyoming</option>
+    </select></li> 
+    <li class="margin">Zip Code <input id="create-zipcode" class="margin-left" type="number" placeholder="Zip Code"></li> 
+    <li>------------------------------------------------------------</li>
+    <li class="margin">Tax Percentage <input id="create-tax-percent" class="margin-left" type="number" placeholder="Tax Percentage"><span> %</span></li>
+    <li class="margin">UID<input id="create-UID" class="margin-left" type="text" placeholder="UID"><button class="margin-left" id="generateID-button">Generate</button></li>
+    <li class="margin">Tables: <span id="tables-title">43</span>  <button id="arrow-for-tables">--></button><input id="create-tables" class="margin-left" type="number" placeholder="Number of `Tables"></li> 
+    </ul>
+    <button id="create-account-bttn" class="margin margin-left">Create</button>
+    <button id="delete-application-bttn" class="margin margin-left">Delete</button>
+    <br>
+  		
+                    
+</div>
+ 
+<div id="search-restaurants-page" class="hidden">
+    <ul class="nodots">
+        <li class="margin"><button id="back-bttn-from-res-search">Back</button><input id="search-for-restaurant-input" placeholder="Search..." class="margin-left" type="text"><button class="margin-left" id="search-button-for-restaurants">Search</button></li>
+    </ul>
+    <div id="restaurant-searched-items">
+
+        </div>
+    </div>
+</div>
+
+<div id="manage-users-one" class="hidden">
+<ul class="nodots">
+    <li class="margin-left margin"><button id="back-button-from-manage-users">Back</button></li>
+    <li class="margin-left margin"><button id="create-a-user-bttn">Create User</button></li>
+    <li class="margin-left margin"><button id="delete-a-user-bttn">Delete User</button></li>
+</ul>
+</div>
+
+<div id="create-account-page" class="hidden">
+    <ul class="nodots">
+        <li class="margin"><button id="back-bttn-from-creating-a-new-account">Back</button></li>
+        <li class="margin">Admin<input id="admin-true-or-false-create" type="checkbox"/></li>
+        <li class="margin">Email: <input id="crate-email-create" class="margin-left" type="text" placeholder="Email"></li>
+        </ul>
+        <ul class="nodots" id="other-half-of-create">
+       <li class="margin">Name: <input id="crate-res-name-create" class="margin-left" type="text" placeholder="Name"></li>  
+       <li class="margin">Street Address: <input id="create-street-address-create" class="margin-left" type="text" placeholder="Street Address"></li>
+       <li class="margin">City <input id="create-city-create" class="margin-left" type="text" placeholder="City"></li> 
+       <li class="margin">State 
+        <select id="create-state-create">
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option value="CA">California</option>
+        <option value="CO">Colorado</option>
+        <option value="CT">Connecticut</option>
+        <option value="DE">Delaware</option>
+        <option value="DC">District Of Columbia</option>
+        <option value="FL">Florida</option>
+        <option value="GA">Georgia</option>
+        <option value="HI">Hawaii</option>
+        <option value="ID">Idaho</option>
+        <option value="IL">Illinois</option>
+        <option value="IN">Indiana</option>
+        <option value="IA">Iowa</option>
+        <option value="KS">Kansas</option>
+        <option value="KY">Kentucky</option>
+        <option value="LA">Louisiana</option>
+        <option value="ME">Maine</option>
+        <option value="MD">Maryland</option>
+        <option value="MA">Massachusetts</option>
+        <option value="MI">Michigan</option>
+        <option value="MN">Minnesota</option>
+        <option value="MS">Mississippi</option>
+        <option value="MO">Missouri</option>
+        <option value="MT">Montana</option>
+        <option value="NE">Nebraska</option>
+        <option value="NV">Nevada</option>
+        <option value="NH">New Hampshire</option>
+        <option value="NJ">New Jersey</option>
+        <option value="NM">New Mexico</option>
+        <option value="NY">New York</option>
+        <option value="NC">North Carolina</option>
+        <option value="ND">North Dakota</option>
+        <option value="OH">Ohio</option>
+        <option value="OK">Oklahoma</option>
+        <option value="OR">Oregon</option>
+        <option value="PA">Pennsylvania</option>
+        <option value="RI">Rhode Island</option>
+        <option value="SC">South Carolina</option>
+        <option value="SD">South Dakota</option>
+        <option value="TN">Tennessee</option>
+        <option value="TX">Texas</option>
+        <option value="UT">Utah</option>
+        <option value="VT">Vermont</option>
+        <option value="VA">Virginia</option>
+        <option value="WA">Washington</option>
+        <option value="WV">West Virginia</option>
+        <option value="WI">Wisconsin</option>
+        <option value="WY">Wyoming</option>
+    </select></li> 
+    <li class="margin">Zip Code <input id="create-zipcode-create" class="margin-left" type="number" placeholder="Zip Code"></li> 
+    <li>------------------------------------------------------------</li>
+    <li class="margin">Tax Percentage <input id="create-tax-percent-create" class="margin-left" type="number" placeholder="Tax Percentage"><span> %</span></li>
+    <li class="margin">UID<input id="create-UID-create" class="margin-left" type="text" placeholder="UID"><button class="margin-left" id="generateID-button-create">Generate</button></li>
+    <li class="margin">Tables:<input id="create-tables-create" class="margin-left" type="number" placeholder="Number of `Tables"></li> 
+    </ul>
+    <ul class="nodots">
+        <li class="margin"><button id="create-account-button-create">Create</button></li>
+    </ul>
+</div>
+
+<div id="deleta-a-user" class="hidden">
+<ul class="nodots">
+    <li class="margin-left margin"><button id="back-from-delete-a-user">Back</button></li>
+    <li class="margin-left"><input type="text" placeholder="username" id="delete-a-user-input"><button id="delete-a-user-bttn-actual" class="margin-left">Delete</button></li>
+</ul>
+</div>
+
+<script src="database.js"></script>
+<script>
+
+//actually delete a user button
+document.getElementById('delete-a-user-bttn-actual').addEventListener('click', function(){
+    db.collection('users').doc(document.getElementById('delete-a-user-input').value).delete();
+    alert('Now delete user from actual user catalaouge');
+})
+
+//delete a user to page
+document.getElementById('delete-a-user-bttn').addEventListener('click', function(){
+    document.getElementById('deleta-a-user').classList.remove('hidden');
+    document.getElementById('manage-users-one').classList.add('hidden');
+})
+
+//delete a user back button
+document.getElementById('back-from-delete-a-user').addEventListener('click', function(){
+    document.getElementById('deleta-a-user').classList.add('hidden');
+    document.getElementById('manage-users-one').classList.remove('hidden');
+    document.getElementById('delete-a-user-input').value = "";
+})
+
+//back button to main 
+document.getElementById('back-buttn-main-menu').onclick = function(){
+    document.getElementById('main-menu').classList.remove('hidden');
+    document.getElementById('check-withdraws').classList.add('hidden');
+}
+
+//difference between dates in hours
+function diff_hours(dt2, dt1)
+ {
+  var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+  diff /= (60 * 60);
+  return Math.abs(Math.round(diff));
+ }
+
+function showApplications(resName, address, phoneNumb, personName, personPos, numbTables, time, email, theID){
+    var appItem = document.createElement("div");
+    appItem.classList.add('borders');
+    appItem.classList.add('margin');
+    var applicationId = document.createElement("p");
+    applicationId.innerText = theID;
+    applicationId.classList.add('hidden');
+    var restaurantName = document.createElement('p');
+    restaurantName.classList.add('margin-left');
+    restaurantName.innerText = "Restaurant name: " + resName;
+    var addy = document.createElement('p');
+    addy.innerText = "Address: " + address;
+    addy.classList.add('margin-left');
+    var phone = document.createElement('p');
+    phone.classList.add('margin-left');
+    phone.innerText = "Phone Number: " + phoneNumb;
+    var namePos = document.createElement('p');
+    namePos.classList.add('margin-left');
+    namePos.innerText = "Name: " + personName + " Positon: " + personPos;
+    var theTables = document.createElement('p');
+    theTables.classList.add('margin-left');
+    theTables.innerText = 'Number of tables: ' + numbTables;
+    var hoursAgo = document.createElement('p');
+    hoursAgo.classList.add('margin-left');
+    hoursAgo.innerText = diff_hours(new Date(), time.toDate()) + ' hrs ago';
+    appItem.appendChild(restaurantName);
+    appItem.appendChild(addy);
+    appItem.appendChild(phone);
+    appItem.appendChild(namePos);
+    appItem.appendChild(theTables);
+    appItem.appendChild(hoursAgo);
+    appItem.appendChild(applicationId);
+    document.getElementById('applicaiton-list').appendChild(appItem);
+    //----------
+    appItem.addEventListener('click', function(){
+        document.getElementById('make-account-from-application').classList.remove('hidden');
+        document.getElementById('check-applications').classList.add('hidden');
+        document.getElementById('restauraunt-name-title').innerText = resName;
+        document.getElementById('street-address-title').innerText = address;
+        document.getElementById('tables-title').innerText = numbTables;
+        document.getElementById('email-name-title').innerText = email;
+        document.getElementById('theID').innerText = applicationId.innerText;
+    })
+    
+
+};
+//function that loads search results
+function loadSearchResults(email, name, openStatus, tax, routingNumb, accountNumb, balance, admin){
+    var thisItem = document.createElement("div");
+    thisItem.id = "restaurant-search-item";
+    thisItem.classList.add('borders');
+    var theEmail = document.createElement("p");
+    theEmail.classList.add('margin-left');
+    if(admin){
+        theEmail.innerText = "Email: " + email + " (admin)";
+    }else{
+        theEmail.innerText = "Email: " + email + " (user)";
+    }
+    var theOpenStatus = document.createElement("p");
+    theOpenStatus.classList.add('margin-left');
+    if(openStatus){
+        theOpenStatus.classList.add("green");
+        theOpenStatus.innerText = "Open";
+    }else{
+        theOpenStatus.classList.add("red");
+        theOpenStatus.innerText = "Closed";
+    }
+    var theTax = document.createElement("p");
+    theTax.classList.add('margin-left');
+    theTax.innerText = "Tax Rate: " + tax + "%";
+    var theRoutingNumb = document.createElement("p");
+    theRoutingNumb.classList.add('margin-left');
+    theRoutingNumb.innerText = "Rounting Number: " + routingNumb;
+    var theAccountNumb = document.createElement("p");
+    theAccountNumb.classList.add('margin-left');
+    theAccountNumb.innerText = "Account Number: " + accountNumb;
+    var theBalance = document.createElement("p");
+    theBalance.classList.add('margin-left');
+    theBalance.innerText = "Balance: " + balance;
+    //------
+    thisItem.appendChild(theEmail);
+    thisItem.appendChild(theOpenStatus);
+    thisItem.appendChild(theTax);
+    thisItem.appendChild(theRoutingNumb);
+    thisItem.appendChild(theAccountNumb);
+    thisItem.appendChild(theBalance);
+    document.getElementById('restaurant-searched-items').appendChild(thisItem);
+};
+
+//delete applicaiton bttn
+document.getElementById('delete-application-bttn').addEventListener('click', function(){
+    
+    db.collection('restaurantApplications').doc(document.getElementById('theID').innerText).delete();
+    document.getElementById('make-account-from-application').classList.add('hidden');
+            document.getElementById('check-applications').classList.remove('hidden');
+            document.getElementById('crate-res-name').value = "";
+            document.getElementById('crate-email').value = "";
+            document.getElementById('create-street-address').value = "";
+            document.getElementById('create-city').value = "";
+            document.getElementById('create-zipcode').value = "";
+            document.getElementById('create-tax-percent').value = "";
+            document.getElementById('create-UID').value = "";
+            document.getElementById('create-tables').value = "";
+            document.getElementById('create-state').value = "AL";
+            document.getElementById('theID').value = "";
+
+            document.getElementById('applicaiton-list').innerHTML = '';
+            db.collection('restaurantApplications').orderBy("time").limit(5).get().then((querySnapshot)=>{
+                
+        querySnapshot.docs.forEach((doc)=>{
+           showApplications(doc.data().rName, doc.data().rAddress, doc.data().phoneNumber, doc.data().namePerson, doc.data().personPosition,doc.data().numbTables, doc.data().time, doc.data().email, doc.id);
+           
+        })
+    })
+            
+            
+})
+//get a unique ID 
+document.getElementById('generateID-button').addEventListener('click', function(){
+    document.getElementById('create-UID').value = "";
+    db.collection('restaurantApplications').add({
+    }).then((doc)=>{
+        document.getElementById('create-UID').value = doc.id;
+        db.collection('restaurantApplications').doc(doc.id).delete();
+    })
+})
+//get a unique ID for create a new account for not from application
+document.getElementById('generateID-button-create').addEventListener('click', function(){
+    document.getElementById('create-UID-create').value = "";
+    db.collection('restaurantApplications').add({
+    }).then((doc)=>{
+        document.getElementById('create-UID-create').value = doc.id;
+        db.collection('restaurantApplications').doc(doc.id).delete();
+    })
+})
+//create an account from create
+document.getElementById('create-account-button-create').addEventListener('click', function(){
+    if(document.getElementById('admin-true-or-false-create').checked){
+        db.collection('users').doc(document.getElementById('crate-email-create').value).set({
+            admin: true
+        }).then(()=>{
+            firebase.auth().createUserWithEmailAndPassword(document.getElementById('crate-email-create').value, "Swiftie1234").then(()=>{
+            document.getElementById('create-account-page').classList.add('hidden');
+            document.getElementById('manage-users-one').classList.remove('hidden');
+            document.getElementById('crate-res-name-create').value = "";
+            document.getElementById('crate-email-create').value = "";
+            document.getElementById('create-street-address-create').value = "";
+            document.getElementById('create-city-create').value = "";
+            document.getElementById('create-zipcode-create').value = "";
+            document.getElementById('create-tax-percent-create').value = "";
+            document.getElementById('create-UID-create').value = "";
+            document.getElementById('create-tables-create').value = "";
+            document.getElementById('create-state-create').value = "AL";
+            })
+            
+        })
+        
+    }else{
+        db.collection('users').doc(document.getElementById('crate-email-create').value).set({
+            name: document.getElementById('crate-res-name-create').value,
+            admin: false,
+            streetAddress: document.getElementById('create-street-address-create').value,
+            City: document.getElementById('create-city-create').value,
+            State: document.getElementById('create-state-create').value,
+            zipcode: document.getElementById('create-zipcode-create').value,
+            taxPercentage: document.getElementById('create-tax-percent-create').value,
+            uid: document.getElementById('create-UID-create').value,
+            routingNumber: 0,
+            accountNumber: 0,
+            balance: 0,
+            open: false
+        }).then(()=>{
+
+            firebase.auth().createUserWithEmailAndPassword(document.getElementById('crate-email-create').value, "Swiftie1234");
+
+            db.collection('users/' + document.getElementById('crate-email-create').value + '/choices').add({});
+            db.collection('users/' + document.getElementById('crate-email-create').value + '/food').add({});
+            db.collection('users/' + document.getElementById('crate-email-create').value + '/sections').doc('placeholder').set({
+                position: 0,
+                visible: false
+            });
+            db.collection('users/' + document.getElementById('crate-email-create').value + '/tables').add({});
+            db.collection('users/' + document.getElementById('crate-email-create').value + '/toppings').doc('placeholder').set({});
+            db.collection('users/' + document.getElementById('crate-email-create').value + '/waiterRequest').doc('placeholder').set({});
+            db.collection('users/' + document.getElementById('crate-email-create').value + '/waiters').doc('placeholder').set({});
+            db.collection('users/' + document.getElementById('crate-email-create').value + '/finance').add({});
+            document.getElementById('create-account-page').classList.add('hidden');
+            document.getElementById('manage-users-one').classList.remove('hidden');
+            document.getElementById('crate-res-name-create').value = "";
+            document.getElementById('crate-email-create').value = "";
+            document.getElementById('create-street-address-create').value = "";
+            document.getElementById('create-city-create').value = "";
+            document.getElementById('create-zipcode-create').value = "";
+            document.getElementById('create-tax-percent-create').value = "";
+            document.getElementById('create-UID-create').value = "";
+            document.getElementById('create-tables-create').value = "";
+            document.getElementById('create-state-create').value = "AL";
+        });  
+    }
+})
+
+
+//arrow buttons for the applicaition
+document.getElementById('arrow-for-res-name').addEventListener('click', function(){
+    var main = document.getElementById('restauraunt-name-title').innerText;
+    document.getElementById('crate-res-name').value = main;
+})
+//arrow for table number
+document.getElementById('arrow-for-tables').addEventListener('click', function(){
+    var main = document.getElementById('tables-title').innerText;
+    document.getElementById('create-tables').value = main;
+})
+//arrow button for email
+document.getElementById('arrow-for-email-name').addEventListener('click', function(){
+    var main = document.getElementById('email-name-title').innerText;
+    document.getElementById('crate-email').value = main;
+})
+//back button from application
+document.getElementById('back-buttn-to-applications').addEventListener('click', function(){
+    document.getElementById('make-account-from-application').classList.add('hidden');
+    document.getElementById('check-applications').classList.remove('hidden');
+    document.getElementById('crate-res-name').value = "";
+    document.getElementById('crate-email').value = "";
+    document.getElementById('create-street-address').value = "";
+    document.getElementById('create-city').value = "";
+    document.getElementById('create-zipcode').value = "";
+    document.getElementById('create-tax-percent').value = "";
+    document.getElementById('create-UID').value = "";
+    document.getElementById('create-tables').value = "";
+    document.getElementById('create-state').value = "AL";
+    document.getElementById('theID').value = "";
+})
+//back from create new user
+document.getElementById('back-bttn-from-creating-a-new-account').addEventListener('click', function(){
+    document.getElementById('create-account-page').classList.add('hidden');
+    document.getElementById('manage-users-one').classList.remove('hidden');
+    document.getElementById('crate-res-name-create').value = "";
+    document.getElementById('crate-email-create').value = "";
+    document.getElementById('create-street-address-create').value = "";
+    document.getElementById('create-city-create').value = "";
+    document.getElementById('create-zipcode-create').value = "";
+    document.getElementById('create-tax-percent-create').value = "";
+    document.getElementById('create-UID-create').value = "";
+    document.getElementById('create-tables-create').value = "";
+    document.getElementById('create-state-create').value = "AL";
+})
+//search restaurants button clicked 
+document.getElementById('search-restaurants-bttn').addEventListener('click', function(){
+document.getElementById('search-restaurants-page').classList.remove('hidden');
+document.getElementById('main-menu').classList.add('hidden');
+document.getElementById('restaurant-searched-items').innerHTML = "";
+})
+//back bttn from restaurant search
+document.getElementById('back-bttn-from-res-search').addEventListener('click', function(){
+document.getElementById('search-restaurants-page').classList.add('hidden');
+document.getElementById('main-menu').classList.remove('hidden');
+})
+//search button clicked
+document.getElementById('search-button-for-restaurants').addEventListener('click', function(){
+    document.getElementById('restaurant-searched-items').innerHTML = "";
+    db.collection('users').doc(document.getElementById('search-for-restaurant-input').value).get().then((snapshot)=>{
+        loadSearchResults(snapshot.id, snapshot.data().name, snapshot.data().open, snapshot.data().taxPercentage, snapshot.data().routingNumber, snapshot.data().accountNumber, snapshot.data().balance, snapshot.data().admin)
+    })
+    
+})
+// manage users bttn clicked
+document.getElementById('manage-users-button').addEventListener('click', function(){
+    document.getElementById('main-menu').classList.add('hidden');
+    document.getElementById('manage-users-one').classList.remove('hidden');
+})
+//back button from manage users
+document.getElementById('back-button-from-manage-users').addEventListener('click', function(){
+    document.getElementById('main-menu').classList.remove('hidden');
+    document.getElementById('manage-users-one').classList.add('hidden');
+})
+//create account button
+document.getElementById('create-a-user-bttn').addEventListener('click', function(){
+    console.log('clicked');
+    document.getElementById('create-account-page').classList.remove('hidden');
+    document.getElementById('manage-users-one').classList.add('hidden');
+})
+document.getElementById('admin-true-or-false-create').addEventListener('input', function(){
+    if(document.getElementById('admin-true-or-false-create').checked){
+        document.getElementById('other-half-of-create').classList.add('hidden');
+    }else{
+        document.getElementById('other-half-of-create').classList.remove('hidden');
+    }
+})
+
+function loadRefunds(chargeId){
+    var mainBox = document.createElement('div');
+    mainBox.style.padding = '3%';
+    mainBox.style.borderWidth = '3px';
+    mainBox.style.borderStyle = 'solid';
+    mainBox.innerText = chargeId;
+    var doneBttn = document.createElement('button');
+    doneBttn.innerText = 'Done';
+    doneBttn.style.marginLeft = '20px';
+    mainBox.appendChild(doneBttn);
+    document.getElementById('withdraw-list').appendChild(mainBox);
+}
+
+//check withdraws button clicked
+document.getElementById('check-withdraws-bttn').onclick = function(){
+    document.getElementById('withdraw-list').innerHTML = '';
+    document.getElementById('main-menu').classList.add('hidden');
+    document.getElementById('check-withdraws').classList.remove('hidden');
+    db.collection('orders').where("type", "==", "refund").orderBy("time").limit(5).get().then((querySnapshot)=>{
+        querySnapshot.docs.forEach((doc) => {
+            loadRefunds(doc.data().chargeId);
+        })
+    })
+    
+}
+
+
+//aplicaitons button clicked
+document.getElementById('applications-button').addEventListener('click', function(){
+    document.getElementById('applicaiton-list').innerHTML = '';
+    document.getElementById('main-menu').classList.add('hidden');
+    document.getElementById('check-applications').classList.remove('hidden');
+    db.collection('restaurantApplications').orderBy("time").limit(5).get().then((querySnapshot)=>{
+        
+        querySnapshot.docs.forEach((doc)=>{
+           showApplications(doc.data().rName, doc.data().rAddress, doc.data().phoneNumber, doc.data().namePerson, doc.data().personPosition,doc.data().numbTables, doc.data().time, doc.data().email, doc.id);
+           
+        })
+    })   
+})
+//back from applications
+document.getElementById('back-buttn-from-aaplications').addEventListener('click', function(){
+    document.getElementById('main-menu').classList.remove('hidden');
+    document.getElementById('check-applications').classList.add('hidden');  
+})
+
+
+//create button from application
+document.getElementById('create-account-bttn').addEventListener('click', function(){
+    
+    if(document.getElementById('admin-true-or-false').checked){
+        db.collection('users').doc(document.getElementById('crate-email').value).set({
+            admin: true
+        }).then(()=>{
+            firebase.auth().createUserWithEmailAndPassword(document.getElementById('crate-email').value, "Swiftie1234").then(()=>{
+            document.getElementById('make-account-from-application').classList.add('hidden');
+            document.getElementById('check-applications').classList.remove('hidden');
+            document.getElementById('crate-res-name').value = "";
+            document.getElementById('crate-email').value = "";
+            document.getElementById('create-street-address').value = "";
+            document.getElementById('create-city').value = "";
+            document.getElementById('create-zipcode').value = "";
+            document.getElementById('create-tax-percent').value = "";
+            document.getElementById('create-UID').value = "";
+            document.getElementById('create-tables').value = "";
+            document.getElementById('create-state').value = "AL";
+            document.getElementById('theID').value = "";
+            })
+            
+        })
+        
+    }else{
+        db.collection('users').doc(document.getElementById('crate-email').value).set({
+            name: document.getElementById('crate-res-name').value,
+            admin: false,
+            streetAddress: document.getElementById('create-street-address').value,
+            City: document.getElementById('create-city').value,
+            State: document.getElementById('create-state').value,
+            zipcode: document.getElementById('create-zipcode').value,
+            taxPercentage: document.getElementById('create-tax-percent').value,
+            uid: document.getElementById('create-UID').value,
+            balance: 0,
+            routingNumber: 0,
+            accountNumber: 0,
+            open: false
+        }).then(()=>{
+            firebase.auth().createUserWithEmailAndPassword(document.getElementById('crate-email').value, "Swiftie1234");
+            db.collection('users/' + document.getElementById('crate-email').value + '/choices').add({});
+            db.collection('users/' + document.getElementById('crate-email').value + '/food').add({});
+            db.collection('users/' + document.getElementById('crate-email').value + '/sections').doc('placeholder').set({
+                position: 0,
+                visible: false
+            });
+            db.collection('users/' + document.getElementById('crate-email').value + '/tables').add({});
+            db.collection('users/' + document.getElementById('crate-email').value + '/toppings').doc('placeholder').set({});
+            db.collection('users/' + document.getElementById('crate-email').value + '/waiterRequest').doc('placeholder').set({});
+            db.collection('users/' + document.getElementById('crate-email').value + '/waiters').doc('placeholder').set({});
+            db.collection('users/' + document.getElementById('crate-email').value + '/finance').add({});
+            db.collection('restaurantApplications').doc(document.getElementById('theID').value).delete();
+            document.getElementById('make-account-from-application').classList.add('hidden');
+            document.getElementById('check-applications').classList.remove('hidden');
+            document.getElementById('crate-res-name').value = "";
+            document.getElementById('crate-email').value = "";
+            document.getElementById('create-street-address').value = "";
+            document.getElementById('create-city').value = "";
+            document.getElementById('create-zipcode').value = "";
+            document.getElementById('create-tax-percent').value = "";
+            document.getElementById('create-UID').value = "";
+            document.getElementById('create-tables').value = "";
+            document.getElementById('create-state').value = "AL";
+            document.getElementById('theID').value = "";
+        });  
+    }     
+});
+
+//logout button
+//  firebase.auth().signOut();
+document.getElementById('logout-button').addEventListener('click', function(){
+    firebase.auth().signOut();
+})
+
+
+auth.onAuthStateChanged (firebaseUser => {
+        if(firebaseUser){
+            db.collection('users').doc(firebaseUser.email).get().then((snapshot)=>{
+                if(snapshot.data().admin == false){
+                    location.href = "homepage.html";
+                }
+
+            })
+
+        }else{
+            location.href = "login.html";
+        
+}
+
+
+});  
+
+
+
+    
+          
+
+
+
+</script>
+
+</body>
+</html>

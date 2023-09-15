@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <title>Get Started</title>
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-storage.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
+ 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;900&display=swap" rel="stylesheet">
+    
+
+    <!--Stylesheet-->
+    <style>
+        body{
+            margin: 0;
+            overflow: hidden;
+        }
+        #main{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(57deg, #99eeff 0%, hsl(326, 100%, 50%) 100%);
+            overflow-y: scroll;
+        }
+        @keyframes theFormAnim {
+            from {
+                opacity: 0;
+                margin-top: 15%;
+            }
+            to {
+                opacity: 1;
+                margin-top: 7%;
+            }
+        }
+        #form{
+            background-color: rgba(255,255,255,0.13);
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 7%;
+            margin-bottom: 7%;
+            padding-top: 2%;
+            padding-bottom: 4%;
+            border-radius: 10px;
+            position: relative;
+            animation: theFormAnim 1.5s;
+        }
+
+        .white{
+            color: white;
+        }
+        #title{
+            color: rgb(255, 255, 255);
+            font-size: 250%;
+            text-align: center;
+        }
+        .little-font{
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 400;
+        }
+        .medium-font{
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 600;
+        }
+        .bold-font{
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 900;
+        }
+        .input{
+            display: block;
+            background-color: rgba(255,255,255,0.07) !important;
+            border-radius: 3px;
+            width: 90%;
+            margin-right: auto;
+            margin-left: auto;
+            border-width: 0px;
+            padding-top: 4%;
+            padding-bottom: 4%;
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 400;
+            color: white !important;
+            padding-left: 3%;
+            font-size: 120%;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+        }
+        input:-webkit-autofill {
+            display: block;
+            background-color: rgba(255,255,255,0.07);
+            border-radius: 3px;
+            width: 90%;
+            margin-right: auto;
+            margin-left: auto;
+            border-width: 0px;
+            padding-top: 4%;
+            padding-bottom: 4%;
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 400;
+            color: white;
+            padding-left: 3%;
+            font-size: 120%;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+        }
+
+        .input::-webkit-outer-spin-button,::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+            }
+        .input:focus{
+            outline: none;
+        }
+        .label{
+            text-align: left;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: 'Kumbh Sans', sans-serif;
+            font-weight: 600;
+            color: white;
+            font-size: 130%;
+        }
+        #sub-bttn{
+            width: 90%;
+            font-size: 120%;
+            background-color: white;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            border-radius: 5px;
+            padding-top: 3%;
+            padding-bottom: 3%;
+            margin-top: 10%;
+        }
+        #sub-bttn:hover{
+            cursor: pointer;
+        }
+
+        #back-bttn{
+            text-align: center;
+            color: white;
+        }
+        #back-bttn:hover{
+            cursor: pointer;
+        }
+        #circle{
+            border-radius: 100%;
+            position: absolute;
+
+            background-color: rgba(255,255,255,0.13);
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display:none;
+            justify-content: center;
+            align-items: center;
+        }
+        #thank-you{
+            text-align: center;
+            font-size: 110%;
+            display: none;
+        }
+        
+        @media only screen and (max-width: 625pt) {
+            #form{
+                width: 90%;
+            }
+        }
+
+       
+
+    </style>
+</head>
+<body>
+
+    <div id="main">
+        <div id="form">
+            <p id="title" class="medium-font">Log In</p>
+
+            <p class="label">Email:</p>
+            <input type="text" placeholder="Email"  id="email" class="input">
+
+            <p class="label">Password:</p>
+            <input type="password" placeholder="Password"  id="pass" class="input">
+
+            <p class="medium-font" id='sub-bttn'>Log In</p>
+            <p class="medium-font" id='back-bttn'>Back</p>
+            </div>
+
+    </div>
+   
+
+    <script src="database.js"></script>
+    <script>
+          document.addEventListener('focusout', function(e){//when keyboard goes down
+      window.scrollTo(0,0);
+  })
+
+  //checks when the window is resized
+  window.addEventListener('resize', function(){
+    window.scrollTo(0,0);
+
+  });
+
+        document.getElementById('back-bttn').addEventListener('click', function(){
+            location.href = "index.html";
+        });
+
+      
+         document.getElementById('sub-bttn').addEventListener('click', function(event){
+            event.preventDefault();
+            var email = document.getElementById('email').value;
+            var pass = document.getElementById('pass').value;
+            auth.signInWithEmailAndPassword(email,pass)
+          .catch((error)=>{
+            alert(error.message);
+          });
+         })
+
+         auth.onAuthStateChanged (firebaseUser => {
+            
+            if(firebaseUser){
+            location.href = "homepage.html";
+    
+            } else{
+        }
+      })
+
+
+    </script>
+     
+        
+</body>
+</html>
